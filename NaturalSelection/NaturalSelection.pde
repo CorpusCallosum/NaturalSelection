@@ -4,6 +4,7 @@
 
 import hypermedia.video.*;
 OpenCV opencv;
+import java.awt.Rectangle;
 
 PFont f;
 Population popul;
@@ -17,6 +18,7 @@ int lastTime = 0;
 // contrast/brightness values
 int contrast_value    = 0;
 int brightness_value  = 0;
+int rot = 0;
 
 void setup() {
   size(1280,800,P3D);
@@ -24,7 +26,7 @@ void setup() {
   f = loadFont("GillSans-12.vlw");
   smooth();
  // int popmax = 10;
-  float mutationRate = 0.05;  // A pretty high mutation rate here, our population is rather small we need to enforce variety
+  float mutationRate = 0.1;  // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
   popul = new Population(mutationRate,popMax);
   
@@ -38,8 +40,12 @@ void setup() {
 void draw() {
   background(0);
   int mx = mouseX; int my = mouseY;
+/*pushMatrix();
+    rotateZ(rot);*/
+
   // Display the faces
   popul.display(popCount);
+  //popMatrix();
   // Display some text
   textFont(f);
   textAlign(LEFT);
@@ -53,6 +59,17 @@ void draw() {
 
     }
   }
+  //CAMERA AND PERSPECTIVE
+//  pushMatrix();
+ /*  float cameraY = height/2.0;
+  float fov = mouseX/float(width) * PI/2;
+  float cameraZ = cameraY / tan(fov / 2.0);
+  float aspect = float(width)/float(height);
+  if (mousePressed) {
+    aspect = aspect / 2.0;
+  }
+  perspective(fov, aspect, cameraZ/10.0, cameraZ*10.0);*/
+  
   //we have viewed all the children, so make a new generation
   if(popCount>=popMax){
     popCount = 0;
@@ -61,6 +78,8 @@ void draw() {
     popul.generate();
   }
   lastTime = second();
+  rot++;
+ // popMatrix();
   
   //FACE TRACKING
    // grab a new frame
