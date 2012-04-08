@@ -15,10 +15,12 @@ class Drawing {
   boolean rollover; //are we rolling over this face?
   int scl = 10;
   float rotX, rotY, rotZ = 0;
+  
+  int levelCnt = 0;
 
   //GENES
   float theta, l;
-  int numSub;
+  int numSub, numLevels;
 
   //Create a new face
   Drawing(DNA dna, float x_, float y_) {
@@ -34,10 +36,13 @@ class Drawing {
      such as: head size, color, eye position, etc.
      Now, since every gene is a floating point between 0 and 1, we scale those values
      appropriately.*/
+     //reset vars
+     
     //MY GENES
-    theta  = radians(genes.getGene(0)*360);
-    l  = genes.getGene(1)*.4;
-    numSub = round(genes.getGene(2)*2)+2;
+    theta  = radians(genes.getGene(0)*360); //degree of rotation of branches
+    l  = genes.getGene(1)*.4;               //the scale factor of sub-branches             
+    numSub = round(genes.getGene(2)*2)+2; //number of branches per level
+    numLevels = round(genes.getGene(3)*3)+1;
 
     //
     stroke(1);
@@ -47,7 +52,7 @@ class Drawing {
     rotateX(rotX);
     rotateY(rotY);
     rotateZ(rotZ);
-    branch(height/2);
+    branch(height/2, 0);
     popMatrix();
     
     rotX+=.02;
@@ -65,7 +70,7 @@ class Drawing {
     }
   }
 
-  void branch(float h) {
+  void branch(float h, int level) {
     println("branch");
 
     // Each branch will be 2/3rds the size of the previous one
@@ -74,9 +79,9 @@ class Drawing {
     println(h);
 
     // All recursive functions must have an exit condition!!!!
-    // Here, ours is when the length of the branch is 2 pixels or less
-    if (h > 3) {
-
+    // Here, ours is when it reaches the number of levels gene
+    if (level < numLevels) {
+   // if (h > 3) {
       for (float i = 0; i<=numSub; i++) {
         pushMatrix();    // Save the current state of transformation (i.e. where are we now)
         rotateX(theta);   // Rotate by theta
@@ -84,7 +89,7 @@ class Drawing {
 
         line(0, 0, 0, -h);  // Draw the branch
         translate(0, -h); // Move to the end of the branch
-        branch(h);       // Ok, now call myself to draw two new branches!!
+        branch(h, level+1);       // Ok, now call myself to draw two new branches!!
         popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
       }
     }

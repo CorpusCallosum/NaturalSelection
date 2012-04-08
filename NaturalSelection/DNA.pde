@@ -43,9 +43,9 @@ class DNA {
   //based on a mutation probability, picks a new random character in array spots
   void mutate(float m) {
     for (int i = 0; i < dna.length; i++) {
-      if (random(1) < m) {
-         dna[i] = random(0,1);
-      }
+     // if (random(1) < m) {
+         dna[i] = random(1);
+      //}
     }
   }
 }
