@@ -16,7 +16,7 @@ class Drawing {
   int levelCnt = 0;
 
   //GENES
-  float theta, l, branchGrowth, thickness;
+  float theta, l, branchStep, thickness, gRotY, gRotZ;
   int numSub, numLevels;
 
   //Create a new face
@@ -41,6 +41,10 @@ class Drawing {
     numSub = round(genes.getGene(2)*5)+1; //number of branches per level
     numLevels = round(genes.getGene(3)*4)+1;
     float startSize = (genes.getGene(4)*(height/2))+height/5;
+    branchStep = (genes.getGene(5)*4)-2; //range -2,+2
+    gRotY  = radians(genes.getGene(6)*360); //degree of rotation of branches
+    gRotZ  = radians(genes.getGene(7)*360); //degree of rotation of branches
+
    // branchGrowth = genes.getGene(5)*2;
   //  thickness = round(genes.getGene(5)*5)+1;
 
@@ -76,17 +80,22 @@ class Drawing {
     // Each branch will be 2/3rds the size of the previous one
     h *= l;
    // numSub = ceil(numSub*(branchGrowth*(level+1)));
-
+   //increment number of sub branches based on step num, per level
+   int numSubBranches = round(numSub + (level*branchStep));
  //   println(h);
 
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene
     if (level < numLevels) {
    // if (h > 3) {
-      for (float i = 0; i<=numSub; i++) {
+      for (float i = 0; i<=numSubBranches; i++) {
         pushMatrix();    // Save the current state of transformation (i.e. where are we now)
         rotateX(theta);   // Rotate by theta
-        rotateY((i/numSub)*(PI*2));   // Rotate Y
+        rotateY((i/numSubBranches)*(PI*2));   // Rotate Y
+      //        rotateY(gRotY);   // Rotate by theta
+
+       // rotateZ(gRotZ);   // Rotate by theta
+
         //Dont draw trunk
         if(level>0){
           line(0, 0, 0, -h);  // Draw the branch

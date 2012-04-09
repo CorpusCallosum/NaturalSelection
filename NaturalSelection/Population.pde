@@ -29,7 +29,7 @@ class Population {
 
   //display all faces
   void display(int id) {
-    println("Population display: "+id);
+ //   println("Population display: "+id);
     _id = id;
    // for (int i = 0; i < population.length; i++) {
       population[id].render();

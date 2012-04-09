@@ -10,9 +10,7 @@ PFont f;
 Population popul;
 int popCount = 0;
 int popMax = 20;
-int displayTime = 5000;
-int time = 0;
-long timer = 0;
+int displayTime = 10;
 int lastTime = 0;
 
 // contrast/brightness values
@@ -58,7 +56,7 @@ void draw() {
 
 
 
-  if (second()%5 == 0) {//change every 5 seconds
+  if (second()%displayTime == 0) {//change every 5 seconds
     if (second()!=lastTime) {
       popCount++;
       lastTime = second();
@@ -124,7 +122,12 @@ void mouseDragged() {
 
   //KEY INPUT
   void keyPressed() {
-   if(key == 'd')
-      debug = !debug; 
+   if(key == 'd'){
+      debug = !debug;
+   } 
+    else if(key == ' '){
+      //iterate next
+       popCount++;
+    }
   }
   
