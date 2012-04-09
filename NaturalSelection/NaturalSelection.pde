@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 5;
+int popMax = 20;
 int displayTime = 5000;
 int time = 0;
 long timer = 0;
@@ -19,6 +19,8 @@ int lastTime = 0;
 int contrast_value    = 0;
 int brightness_value  = 0;
 int rot = 0;
+boolean debug;
+
 
 void setup() {
   size(1280, 800, P3D);
@@ -36,6 +38,8 @@ void setup() {
   opencv.cascade( OpenCV.CASCADE_FRONTALFACE_ALT );  // load detection description, here-> front face detection : "haarcascade_frontalface_alt.xml"
 
   textMode(SCREEN);
+  debug = false;
+
 }
 
 void draw() {
@@ -83,8 +87,7 @@ void draw() {
   // proceed detection
   Rectangle[] faces = opencv.detect( 1.2, 2, OpenCV.HAAR_DO_CANNY_PRUNING, 40, 40 );
 
-  // display the image
-  image( opencv.image(), 0, 0 );
+ 
 
   // Display some text
   textFont(f);
@@ -94,12 +97,18 @@ void draw() {
   text("Generation #" + (popul.getGenerations()+1) + " Child #"+(popCount+1)+"/"+popMax, 25, height-50);
   text("Health:"+popul.getChildAt(popCount).fitness, 25, height - 25);
 
+
+ // display the image
+ if(debug)
+  image( opencv.image(), 0, 0 );
+
   // draw face area(s)
   noFill();
   stroke(255, 0, 0);
   rectMode(CORNER);
   for ( int i=0; i<faces.length; i++ ) {
-    rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
+    if(debug)
+      rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
     //score image
     popul.scoreCurrent(faces.length);
   }
@@ -112,3 +121,10 @@ void mouseDragged() {
   contrast_value   = (int) map( mouseX, 0, width, -128, 128 );
   brightness_value = (int) map( mouseY, 0, width, -128, 128 );
 }
+
+  //KEY INPUT
+  void keyPressed() {
+   if(key == 'd')
+      debug = !debug; 
+  }
+  

@@ -29,6 +29,7 @@ class Population {
 
   //display all faces
   void display(int id) {
+    println("Population display: "+id);
     _id = id;
    // for (int i = 0; i < population.length; i++) {
       population[id].render();
@@ -75,6 +76,7 @@ class Population {
     //CHANGE THIS TO CHOOSE ONLY THE FITTEST, (no mating)
     //refill the population with children from the mating pool
     for (int i = 0; i < population.length; i++) {
+      println("make child: "+ i);
     //  int m = int(random(darwin.size()));
     //  int d = int(random(darwin.size()));
       //pick two parents
@@ -86,7 +88,7 @@ class Population {
       //mate their genes
       DNA child = momgenes; //.mate(dadgenes);
       //mutate their genese
-      child.mutate(1);
+  //    child.mutate(1);
       //fill the new population with the new child
       population[i] = new Drawing(child,width/2,height/2);
     }

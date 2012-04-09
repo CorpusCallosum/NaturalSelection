@@ -11,15 +11,12 @@ class Drawing {
   DNA genes;      //face's DNA
   float fitness;  //how good is this face?
   float x, y;      //position on screen
-  int wh = 1000;    //size of rectangle enclosing face
-  boolean rollover; //are we rolling over this face?
-  int scl = 10;
   float rotX, rotY, rotZ = 0;
-  
+    
   int levelCnt = 0;
 
   //GENES
-  float theta, l;
+  float theta, l, branchGrowth, thickness;
   int numSub, numLevels;
 
   //Create a new face
@@ -40,9 +37,12 @@ class Drawing {
      
     //MY GENES
     theta  = radians(genes.getGene(0)*360); //degree of rotation of branches
-    l  = genes.getGene(1)*.4;               //the scale factor of sub-branches             
-    numSub = round(genes.getGene(2)*2)+2; //number of branches per level
-    numLevels = round(genes.getGene(3)*3)+1;
+    l  = genes.getGene(1)*2+.1;               //the scale factor of sub-branches             
+    numSub = round(genes.getGene(2)*5)+1; //number of branches per level
+    numLevels = round(genes.getGene(3)*4)+1;
+    float startSize = (genes.getGene(4)*(height/2))+height/5;
+   // branchGrowth = genes.getGene(5)*2;
+  //  thickness = round(genes.getGene(5)*5)+1;
 
     //
     stroke(1);
@@ -52,7 +52,7 @@ class Drawing {
     rotateX(rotX);
     rotateY(rotY);
     rotateZ(rotZ);
-    branch(height/2, 0);
+    branch(startSize, 0);
     popMatrix();
     
     rotX+=.02;
@@ -71,12 +71,13 @@ class Drawing {
   }
 
   void branch(float h, int level) {
-    println("branch");
+   // println("branch");
 
     // Each branch will be 2/3rds the size of the previous one
     h *= l;
+   // numSub = ceil(numSub*(branchGrowth*(level+1)));
 
-    println(h);
+ //   println(h);
 
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene
@@ -86,10 +87,12 @@ class Drawing {
         pushMatrix();    // Save the current state of transformation (i.e. where are we now)
         rotateX(theta);   // Rotate by theta
         rotateY((i/numSub)*(PI*2));   // Rotate Y
-
-        line(0, 0, 0, -h);  // Draw the branch
-        translate(0, -h); // Move to the end of the branch
-        branch(h, level+1);       // Ok, now call myself to draw two new branches!!
+        //Dont draw trunk
+        if(level>0){
+          line(0, 0, 0, -h);  // Draw the branch
+          translate(0, -h); // Move to the end of the branch
+        }
+        branch(h, level+1);       // Ok, now call myself to draw sub-branches
         popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
       }
     }
@@ -106,5 +109,7 @@ class Drawing {
   void score(int m) {
     fitness += 0.25*m;
   }
+  
+
 }
 
