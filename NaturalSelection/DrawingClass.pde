@@ -12,7 +12,7 @@ class Drawing {
   float fitness;  //how good is this face?
   float x, y;      //position on screen
   float rotX, rotY, rotZ = 0;
-    
+
   int levelCnt = 0;
 
   //GENES
@@ -33,8 +33,8 @@ class Drawing {
      such as: head size, color, eye position, etc.
      Now, since every gene is a floating point between 0 and 1, we scale those values
      appropriately.*/
-     //reset vars
-     
+    //reset vars
+
     //MY GENES
     theta  = radians(genes.getGene(0)*360); //degree of rotation of branches
     l  = genes.getGene(1)*2+.1;               //the scale factor of sub-branches             
@@ -45,8 +45,8 @@ class Drawing {
     gRotY  = radians(genes.getGene(6)*360); //degree of rotation of branches
     gRotZ  = radians(genes.getGene(7)*360); //degree of rotation of branches
 
-   // branchGrowth = genes.getGene(5)*2;
-  //  thickness = round(genes.getGene(5)*5)+1;
+    // branchGrowth = genes.getGene(5)*2;
+    //  thickness = round(genes.getGene(5)*5)+1;
 
     //
     stroke(1);
@@ -58,7 +58,7 @@ class Drawing {
     rotateZ(rotZ);
     branch(startSize, 0);
     popMatrix();
-    
+
     rotX+=.02;
     rotY+=.01;
     rotZ+=.03;
@@ -75,29 +75,29 @@ class Drawing {
   }
 
   void branch(float h, int level) {
-   // println("branch");
+    // println("branch");
 
-    // Each branch will be 2/3rds the size of the previous one
+    // Each branch will be scaled
     h *= l;
-   // numSub = ceil(numSub*(branchGrowth*(level+1)));
-   //increment number of sub branches based on step num, per level
-   int numSubBranches = round(numSub + (level*branchStep));
- //   println(h);
+    // numSub = ceil(numSub*(branchGrowth*(level+1)));
+    //increment number of sub branches based on step num, per level
+    int numSubBranches = round(numSub + (level*branchStep));
+    //   println(h);
 
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene
     if (level < numLevels) {
-   // if (h > 3) {
+      // if (h > 3) {
       for (float i = 0; i<=numSubBranches; i++) {
         pushMatrix();    // Save the current state of transformation (i.e. where are we now)
         rotateX(theta);   // Rotate by theta
         rotateY((i/numSubBranches)*(PI*2));   // Rotate Y
-      //        rotateY(gRotY);   // Rotate by theta
+        //        rotateY(gRotY);   // Rotate by theta
 
-       // rotateZ(gRotZ);   // Rotate by theta
+        // rotateZ(gRotZ);   // Rotate by theta
 
         //Dont draw trunk
-        if(level>0){
+        if (level>0) {
           line(0, 0, 0, -h);  // Draw the branch
           translate(0, -h); // Move to the end of the branch
         }
@@ -118,7 +118,5 @@ class Drawing {
   void score(int m) {
     fitness += 0.25*m;
   }
-  
-
 }
 

@@ -10,6 +10,7 @@ class Population {
   int MAX;                      //population maximum
   float mutationRate;           //mutation rate
   Drawing[] population;         //arraylist to hold the current population
+  DNA[] genotypes;
   ArrayList darwin;             //ArrayList which we will use for our "mating pool"
   int generations;              //number of generations
   int _id;
@@ -86,9 +87,9 @@ class Population {
       DNA momgenes = mom.getGenes();
      // DNA dadgenes = dad.getGenes();
       //mate their genes
-      DNA child = momgenes; //.mate(dadgenes);
-      //mutate their genese
-  //    child.mutate(1);
+  //    DNA child = momgenes; //.mate(dadgenes);
+      //mutate their genes
+       DNA child = new DNA(momgenes.getMutatedDNA(.05));
       //fill the new population with the new child
       population[i] = new Drawing(child,width/2,height/2);
     }

@@ -10,7 +10,7 @@ PFont f;
 Population popul;
 int popCount = 0;
 int popMax = 20;
-int displayTime = 10;
+int displayTime = 60;
 int lastTime = 0;
 
 // contrast/brightness values
@@ -58,12 +58,13 @@ void draw() {
 
   if (second()%displayTime == 0) {//change every 5 seconds
     if (second()!=lastTime) {
-      popCount++;
-      lastTime = second();
+      next();
+     // popCount++;
+     // lastTime = second();
     }
   }
 
-
+/*
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
     popCount = 0;
@@ -71,8 +72,8 @@ void draw() {
     popul.naturalSelection();
     popul.generate();
   }
-  lastTime = second();
-  rot++;
+  lastTime = second();*/
+//  rot++;
 
   //FACE TRACKING
   // grab a new frame
@@ -92,8 +93,8 @@ void draw() {
   textAlign(LEFT);
   fill(1);
   // translate(0,0);
-  text("Generation #" + (popul.getGenerations()+1) + " Child #"+(popCount+1)+"/"+popMax, 25, height-50);
-  text("Health:"+popul.getChildAt(popCount).fitness, 25, height - 25);
+  text("Generation #" + (popul.getGenerations()+1) + " Versions #"+(popCount+1)+"/"+popMax, 25, height-50);
+  text("Rating:"+popul.getChildAt(popCount).fitness, 25, height - 25);
 
 
  // display the image
@@ -112,6 +113,20 @@ void draw() {
   }
 }
 
+//go to next child or next generation
+void next(){
+    popCount++;
+   // lastTime = second();
+  //we have viewed all the children, so make a new generation
+  if (popCount>=popMax) {
+    popCount = 0;
+    //generate new generation
+    popul.naturalSelection();
+    popul.generate();
+  }
+  lastTime = second();
+}
+
 /**
  * Changes contrast/brigthness values for face camera
  */
@@ -126,8 +141,8 @@ void mouseDragged() {
       debug = !debug;
    } 
     else if(key == ' '){
-      //iterate next
-       popCount++;
+      //bypass timer to iterate next
+       next();
     }
   }
   

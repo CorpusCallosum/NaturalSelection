@@ -41,14 +41,21 @@ class DNA {
   }
   
   //based on a mutation probability, picks a new random character in array spots
-  void mutate(float m) {
+ float[] getMutatedDNA(float amt) {
     println("mutate child: ");
+    float[] child = new float[dna.length];
+
     for (int i = 0; i < dna.length; i++) {
      // if (random(1) < m) {
-         
-         dna[i] = random(1);
-         println("dna "+i+": "+ dna[i]);
-      //}
+       //create random offset between -.1 and .1
+       //make sure it does not get bigger or smaller than 
+       float randomOffset = random(-amt,amt);
+       
+        child[i] = constrain(dna[i] + randomOffset, 0, 1);
+        
+        println("dna "+i+": "+ dna[i]);
+        
     }
+     return child;
   }
 }
