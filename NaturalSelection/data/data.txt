@@ -1,0 +1,11 @@
+{'type':'face','timestamp':1334291825,'numFaces':1}
+{'type':'face','timestamp':1334291827,'numFaces':0}
+{'type':'face','timestamp':1334291828,'numFaces':1}
+{'type':'face','timestamp':1334291828,'numFaces':0}
+{'type':'face','timestamp':1334291828,'numFaces':1}
+{'type':'face','timestamp':1334291828,'numFaces':0}
+{'type':'face','timestamp':1334291830,'numFaces':1}
+{'type':'face','timestamp':1334291831,'numFaces':0}
+{'type':'face','timestamp':1334291831,'numFaces':1}
+{'type':'face','timestamp':1334291831,'numFaces':0}
+{'type':'face','timestamp':1334291832,'numFaces':1}

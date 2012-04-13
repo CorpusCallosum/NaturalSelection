@@ -143,8 +143,8 @@ void next() {
 void saveToFile(String s) {
   println("saveToFile: "+s);
   try {
-    BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
-    writer.write(s);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(dataPath("data.txt"), true));
+    writer.write(s+"\n");
     writer.flush();
     writer.close();
   } 
