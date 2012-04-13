@@ -104,8 +104,8 @@ void draw() {
   }
 
   //advance when all look away
-  if (faces.length > 0) {
-    if (_facesLastTime == 0) {
+  if (faces.length == 0) {
+    if (_facesLastTime > 0) {
       next();
     }
   }
@@ -116,7 +116,7 @@ void draw() {
     Date d = new Date();
     long time = d.getTime()/1000; 
 
-    String j = "{'type':'face', 'timestamp':"+time+",'numFaces':"+faces.length+"}";
+    String j = "{'type':'face','timestamp':"+time+",'numFaces':"+faces.length+"}";
     saveToFile(j);
   }
 
@@ -141,6 +141,7 @@ void next() {
 }
 
 void saveToFile(String s) {
+  println("saveToFile: "+s);
   try {
     BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
     writer.write(s);
