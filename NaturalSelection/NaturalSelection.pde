@@ -42,8 +42,8 @@ void setup() {
 }
 
 void draw() {
-  background(0,0,0,.5);
- 
+  background(0, 0, 0, .5);
+
   int mx = mouseX; 
   int my = mouseY;
 
@@ -110,10 +110,20 @@ void draw() {
     }
   }
 
+  //log data
+  if (faces.length != _facesLastTime) {
+    
+    Date d = new Date();
+    long time = d.getTime()/1000; 
+
+    String j = "{'type':'face', 'timestamp':"+time+",'numFaces':"+faces.length+"}";
+    saveToFile(j);
+  }
+
   _facesLastTime = faces.length;
-  
+
   // fill(1,0,0,.5);
-//rect(0,0,width,height);
+  //rect(0,0,width,height);
 }
 
 //go to next child or next generation
@@ -128,6 +138,18 @@ void next() {
     popul.generate();
   }
   lastTime = second();
+}
+
+void saveToFile(String s) {
+  try {
+    BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
+    writer.write(s);
+    writer.flush();
+    writer.close();
+  } 
+  catch (IOException ioe) {
+    println("error: " + ioe);
+  }
 }
 
 /**
