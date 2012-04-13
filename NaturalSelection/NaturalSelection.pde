@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 20;
+int popMax = 10;
 int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
@@ -112,7 +112,7 @@ void draw() {
 
   //log data
   if (faces.length != _facesLastTime) {
-    
+
     Date d = new Date();
     long time = d.getTime()/1000; 
 
@@ -132,12 +132,29 @@ void next() {
   // lastTime = second();
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
-    popCount = 0;
-    //generate new generation
-    popul.naturalSelection();
-    popul.generate();
+    makeNewGeneration();
   }
   lastTime = second();
+}
+
+void makeNewGeneration() {
+  popCount = 0;
+  //generate new generation
+  popul.naturalSelection();
+  popul.generate();
+
+  //record data
+  Date d = new Date();
+  long time = d.getTime()/1000;
+  float[] momGenes = popul.getMomDNA();
+  String data = "{'type':'generation','timestamp':"+time+",'momGenes':[";
+  int i;
+  for(i = 0; i<momGenes.length-1;i++){
+    data+= momGenes[i]+",";
+  }
+  //final gene to string, no comma
+  data+= momGenes[i]+"]}";
+  saveToFile(data);
 }
 
 void saveToFile(String s) {

@@ -58,4 +58,8 @@ class DNA {
     }
      return child;
   }
+  
+  float[] getDNA() {
+   return dna; 
+  }
 }

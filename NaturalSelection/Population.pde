@@ -15,8 +15,9 @@ class Population {
   int generations;              //number of generations
   int _id;
   Drawing _healthiestChild;
-  
-    float rotX, rotY, rotZ = 0;
+  Drawing mom;
+
+  float rotX, rotY, rotZ = 0;
 
   //*INITIALIZE THE POPULATION*//
   Population(float m, int num) {
@@ -26,26 +27,26 @@ class Population {
     darwin = new ArrayList();
     generations = 0;
     for (int i = 0; i < population.length; i++) {
-      population[i] = new Drawing(new DNA(),width/2,height/2);
+      population[i] = new Drawing(new DNA(), width/2, height/2);
     }
   }
 
   //display all faces
   void display(int id) {
- //   println("Population display: "+id);
-      _id = id;
-      
-      pushMatrix();
-      
+    //   println("Population display: "+id);
+    _id = id;
+
+    pushMatrix();
+
     translate(width/2, height/2);
- rotateX(rotX);
+    rotateX(rotX);
     rotateY(rotY);
     rotateZ(rotZ);
-      population[id].render();
-      
-      popMatrix();
-   
-    
+    population[id].render();
+
+    popMatrix();
+
+
     rotX+=.01;
     rotY+=.03;
     rotZ+=.02;
@@ -61,43 +62,45 @@ class Population {
     }
   }
 
-  
+
 
   //generate a mating pool
   void naturalSelection() {
-    
+
     _healthiestChild = population[0];
-   
+
     for (int i = 0; i < population.length; i++) {
-      if(population[i].getFitness() > _healthiestChild.getFitness()){
+      if (population[i].getFitness() > _healthiestChild.getFitness()) {
         _healthiestChild = population[i];
       }
-      
     }
-   
   }
 
   //*CREATE A NEW GENERATION**//
   void generate() {
     //add first member of next generation as an exact clone of the mother
-    
+
     //CHANGE THIS TO CHOOSE ONLY THE FITTEST, (no mating)
     //refill the population with children from the mating pool
     for (int i = 0; i < population.length; i++) {
       println("make child: "+ i);
-      Drawing mom = _healthiestChild;
+      mom = _healthiestChild;
       //get their genes
       DNA momgenes = mom.getGenes();
       //mutate their genes
-       DNA child = new DNA(momgenes.getMutatedDNA(mutationRate));
+      DNA child = new DNA(momgenes.getMutatedDNA(mutationRate));
       //fill the new population with the new child
-      population[i] = new Drawing(child,width/2,height/2);
+      population[i] = new Drawing(child, width/2, height/2);
     }
     generations++;
   }
-  
-  void scoreCurrent(int m){
-        population[_id].score(m);
+
+  float[] getMomDNA() {
+    return mom.getGenes().getDNA();
+  }
+
+  void scoreCurrent(int m) {
+    population[_id].score(m);
   }
 
   int getGenerations() {
@@ -112,9 +115,9 @@ class Population {
     }
     return total;
   }
-  
-  Drawing getChildAt(int i){
+
+  Drawing getChildAt(int i) {
     return population[i];
   }
-
 }
+
