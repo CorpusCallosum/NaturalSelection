@@ -98,8 +98,14 @@ class Drawing {
 
         //Dont draw trunk
         if (level>0) {
-          line(0, 0, 0, -h);  // Draw the branch
-          translate(0, -h); // Move to the end of the branch
+          try{
+            line(0, 0, 0, -h);  // Draw the branch
+            translate(0, -h); // Move to the end of the branch
+          }
+          catch(Exception e){
+            println("ERROR drawing trunk :( ");
+            println(e);
+          }
         }
         branch(h, level+1);       // Ok, now call myself to draw sub-branches
         popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
@@ -119,4 +125,3 @@ class Drawing {
     fitness += 0.25*m;
   }
 }
-

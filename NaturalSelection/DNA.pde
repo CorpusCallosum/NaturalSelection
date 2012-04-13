@@ -42,7 +42,7 @@ class DNA {
   
   //based on a mutation probability, picks a new random character in array spots
  float[] getMutatedDNA(float amt) {
-    println("mutate child: ");
+   // println("mutate child: ");
     float[] child = new float[dna.length];
 
     for (int i = 0; i < dna.length; i++) {
@@ -53,7 +53,7 @@ class DNA {
        
         child[i] = constrain(dna[i] + randomOffset, 0, 1);
         
-        println("dna "+i+": "+ dna[i]);
+      //  println("dna "+i+": "+ dna[i]);
         
     }
      return child;

@@ -158,7 +158,7 @@ void makeNewGeneration() {
 }
 
 void saveToFile(String s) {
-  println("saveToFile: "+s);
+ // println("saveToFile: "+s);
   try {
     BufferedWriter writer = new BufferedWriter(new FileWriter(dataPath("data.txt"), true));
     writer.write(s+"\n");
