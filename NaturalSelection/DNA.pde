@@ -1,3 +1,7 @@
+//*****************************************************
+// Natural Selection
+// Jack Kalish - ITP Spring 2012
+//*****************************************************
 // Interactive Selection
 // http://www.genarts.com/karl/papers/siggraph91.html
 // Daniel Shiffman <http://www.shiffman.net>

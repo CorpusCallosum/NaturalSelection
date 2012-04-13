@@ -1,4 +1,8 @@
-// Interactive Selection
+//*****************************************************
+// Natural Selection
+// Jack Kalish - ITP Spring 2012
+//*****************************************************
+// Based on: 
 // http://www.genarts.com/karl/papers/siggraph91.html
 // Daniel Shiffman <http://www.shiffman.net>
 
@@ -23,6 +27,7 @@ boolean debug;
 
 
 void setup() {
+  noCursor();
   size(1280, 800, P3D);
   colorMode(RGB, 1.0);
   f = loadFont("DINPro-Bold-29.vlw");

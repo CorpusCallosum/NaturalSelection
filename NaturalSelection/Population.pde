@@ -1,9 +1,12 @@
+//*****************************************************
+// Natural Selection
+// Jack Kalish - ITP Spring 2012
+//*****************************************************
 // Interactive Selection
 // http://www.genarts.com/karl/papers/siggraph91.html
 // Daniel Shiffman <http://www.shiffman.net>
 
-// A class to describe a population of faces
-// this hasn't changed very much from example to example
+// A class to describe a population of recursive trees structures
 
 class Population {
 
