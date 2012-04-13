@@ -51,15 +51,15 @@ class Drawing {
     //
     stroke(1);
     strokeWeight(1);
-    pushMatrix();
-    translate(width/2, height/2);
-    rotateX(rotX);
+   // pushMatrix();
+//    translate(width/2, height/2);
+   /* rotateX(rotX);
     rotateY(rotY);
-    rotateZ(rotZ);
+    rotateZ(rotZ);*/
     branch(startSize, 0);
-    popMatrix();
+ //   popMatrix();
 
-    rotX+=.02;
+   /* rotX+=.02;
     rotY+=.01;
     rotZ+=.03;
 
@@ -71,7 +71,7 @@ class Drawing {
     }
     if (rotZ >= 2*PI) {
       rotZ = 0;
-    }
+    }*/
   }
 
   void branch(float h, int level) {
