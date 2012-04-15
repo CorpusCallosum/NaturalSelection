@@ -1,3 +1,0 @@
-{'type':'face','timestamp':1334354627,'numFaces':1}
-{'type':'face','timestamp':1334354627,'numFaces':0}
-{'type':'face','timestamp':1334354627,'numFaces':1}
