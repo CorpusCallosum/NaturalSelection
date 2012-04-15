@@ -36,6 +36,7 @@ void setup() {
   float mutationRate = .05;  // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
   popul = new Population(mutationRate, popMax);
+  makeNewGeneration();
 
   //face tracking!
   opencv = new OpenCV( this );
@@ -104,6 +105,7 @@ void draw() {
   for ( int i=0; i<faces.length; i++ ) {
     if (debug)
       rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
+      
     //score image
     popul.scoreCurrent(faces.length);
   }
@@ -117,11 +119,9 @@ void draw() {
 
   //log data
   if (faces.length != _facesLastTime) {
-
     Date d = new Date();
     long time = d.getTime()/1000; 
-
-    String j = "{'type':'face','timestamp':"+time+",'numFaces':"+faces.length+"}";
+    String j = "{'type':'face','timestamp':"+time+",'numFaces':"+faces.length+", 'generation':"+popul.getGenerations()+", 'iteration':"+popCount+"}";
     saveToFile(j);
   }
 
@@ -152,7 +152,7 @@ void makeNewGeneration() {
   Date d = new Date();
   long time = d.getTime()/1000;
   float[] momGenes = popul.getMomDNA();
-  String data = "{'type':'generation','timestamp':"+time+",'momGenes':[";
+  String data = "{'type':'generation','timestamp':"+time+", 'generation':"+popul.getGenerations()+", 'momGenes':[";
   int i;
   for(i = 0; i<momGenes.length-1;i++){
     data+= momGenes[i]+",";

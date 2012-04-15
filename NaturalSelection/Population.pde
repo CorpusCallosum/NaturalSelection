@@ -28,9 +28,9 @@ class Population {
     MAX = num;
     population = new Drawing[MAX];
     darwin = new ArrayList();
-    generations = 0;
+    generations = 1;
     for (int i = 0; i < population.length; i++) {
-      population[i] = new Drawing(new DNA(), width/2, height/2);
+      population[i] = new Drawing(new DNA(false), width/2, height/2);
     }
   }
 

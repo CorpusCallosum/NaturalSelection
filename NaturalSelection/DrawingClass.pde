@@ -40,14 +40,15 @@ class Drawing {
     //reset vars
 
     //MY GENES
-    theta  = radians(genes.getGene(0)*360); //degree of rotation of branches
-    l  = genes.getGene(1)*2+.1;               //the scale factor of sub-branches             
-    numSub = round(genes.getGene(2)*5)+1; //number of branches per level
-    numLevels = round(genes.getGene(3)*4)+1;
-    float startSize = (genes.getGene(4)*(height/2))+height/5;
-    branchStep = (genes.getGene(5)*4)-2; //range -2,+2
-    gRotY  = radians(genes.getGene(6)*360); //degree of rotation of branches
-    gRotZ  = radians(genes.getGene(7)*360); //degree of rotation of branches
+    theta  = radians(genes.getGene(0)*360);                    //degree of rotation of branches
+    l  = genes.getGene(1)*2+.1;                                //the scale factor of sub-branches             
+    numSub = round(genes.getGene(2)*5)+1;                      //number of branches per level
+    numLevels = round(genes.getGene(3)*4)+1;                   //number of levels of recursion
+    float startSize = (genes.getGene(4)*(height/2))+height/5;  //size of the first branch
+    branchStep = (genes.getGene(5)*4)-2;                       //range -2,+2
+    
+   // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
+   // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
 
     // branchGrowth = genes.getGene(5)*2;
     //  thickness = round(genes.getGene(5)*5)+1;
@@ -81,13 +82,12 @@ class Drawing {
   void branch(float h, int level) {
     // println("branch");
 
-    // Each branch will be scaled
-    h *= l;
+   
     // numSub = ceil(numSub*(branchGrowth*(level+1)));
     //increment number of sub branches based on step num, per level
     int numSubBranches = round(numSub + (level*branchStep));
     //   println(h);
-
+    
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene
     if (level < numLevels) {
