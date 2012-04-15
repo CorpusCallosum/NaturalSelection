@@ -1,2 +1,14 @@
 {'type':'generation','timestamp':1334451658, 'generation':2, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
 {'type':'face','timestamp':1334451659,'numFaces':1, 'generation':2, 'iteration':0}
+{'type':'generation','timestamp':1334451757, 'generation':2, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'face','timestamp':1334451760,'numFaces':1, 'generation':2, 'iteration':0}
+{'type':'face','timestamp':1334451760,'numFaces':0, 'generation':2, 'iteration':1}
+{'type':'face','timestamp':1334451765,'numFaces':1, 'generation':2, 'iteration':1}
+{'type':'face','timestamp':1334451765,'numFaces':0, 'generation':2, 'iteration':2}
+{'type':'generation','timestamp':1334451785, 'generation':2, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'generation','timestamp':1334451843, 'generation':1, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'generation','timestamp':1334451848, 'generation':1, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'generation','timestamp':1334451996, 'generation':1, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'generation','timestamp':1334452008, 'generation':1, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'face','timestamp':1334452060,'numFaces':1, 'generation':1, 'iteration':0}
+{'type':'face','timestamp':1334452060,'numFaces':0, 'generation':1, 'iteration':1}

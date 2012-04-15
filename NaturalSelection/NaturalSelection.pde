@@ -65,9 +65,6 @@ void draw() {
     }
   }
 
-
-
-
   //FACE TRACKING
   // grab a new frame
   // and convert to gray
@@ -84,7 +81,7 @@ void draw() {
   fill(1);
   // translate(0,0);
   int y = height-100;
-  text("Generation #" + (popul.getGenerations()+1) + " Iteration #"+(popCount+1)+"/"+popMax, 25, y);
+  text("Generation #" + (popul.getGenerations()) + " Iteration #"+(popCount+1)+"/"+popMax, 25, y);
   y += textSpacer;
   text("Rating:"+popul.getChildAt(popCount).fitness, 25, y);
   y += textSpacer;
