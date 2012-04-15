@@ -31,7 +31,7 @@ class DNA {
       
      
      // dna[0] = 0;    //degree of rotation of branches
-      dna[1] = 0.1;    //the scale factor of sub-branches       
+      dna[1] = 0.2;    //the scale factor of sub-branches       
      /* dna[2] = 0;    //number of branches per level
       dna[3] = 1;    //number of levels of recursion*/
       dna[4] = .1;    //size of the first branch

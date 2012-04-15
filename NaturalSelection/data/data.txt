@@ -1538,3 +1538,16 @@
 {'type':'generation','timestamp':1334464874, 'generation':1, 'momGenes':[0.4,0.1,0.4,0.4,0.1,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4]}
 {'type':'face','timestamp':1334464879,'numFaces':1, 'generation':1, 'iteration':0}
 {'type':'face','timestamp':1334464881,'numFaces':0, 'generation':1, 'iteration':1}
+{'type':'generation','timestamp':1334465132, 'generation':1, 'momGenes':[0.4,0.1,0.4,0.4,0.1,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4]}
+{'type':'face','timestamp':1334465140,'numFaces':1, 'generation':1, 'iteration':0}
+{'type':'face','timestamp':1334465143,'numFaces':0, 'generation':1, 'iteration':4}
+{'type':'face','timestamp':1334465145,'numFaces':1, 'generation':1, 'iteration':4}
+{'type':'generation','timestamp':1334465147, 'generation':2, 'momGenes':[0.40801206,0.06345848,0.35675994,0.42583966,0.11511055,0.41862357,0.35751286,0.38496187,0.40507692,0.4435324,0.38849944,0.424779,0.39052403,0.39540538,0.38181463,0.37656742,0.41757315,0.44740802,0.3876557,0.38622832]}
+{'type':'face','timestamp':1334465149,'numFaces':2, 'generation':2, 'iteration':5}
+{'type':'face','timestamp':1334465149,'numFaces':1, 'generation':2, 'iteration':5}
+{'type':'generation','timestamp':1334465149, 'generation':3, 'momGenes':[0.399082,0.043935195,0.39925024,0.42441145,0.13534595,0.44322625,0.33028612,0.33650655,0.4520365,0.40060624,0.40738034,0.3758114,0.41852552,0.4346182,0.39761457,0.38910508,0.43462712,0.46139187,0.34465986,0.4317622]}
+{'type':'generation','timestamp':1334465163, 'generation':1, 'momGenes':[0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4]}
+{'type':'face','timestamp':1334465171,'numFaces':1, 'generation':1, 'iteration':0}
+{'type':'generation','timestamp':1334465178, 'generation':1, 'momGenes':[0.4,0.4,0.4,0.4,0.1,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4]}
+{'type':'face','timestamp':1334465181,'numFaces':1, 'generation':1, 'iteration':0}
+{'type':'generation','timestamp':1334465202, 'generation':1, 'momGenes':[0.4,0.2,0.4,0.4,0.1,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4]}
