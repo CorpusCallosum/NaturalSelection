@@ -21,7 +21,7 @@ int _facesLastTime = 0;
 
 // contrast/brightness values
 int contrast_value    = 0;
-int brightness_value  = 0;
+int brightness_value  = 21;
 
 boolean debug;
 
@@ -181,6 +181,9 @@ void saveToFile(String s) {
 void mouseDragged() {
   contrast_value   = (int) map( mouseX, 0, width, -128, 128 );
   brightness_value = (int) map( mouseY, 0, width, -128, 128 );
+  
+  println("contrast_value: "+contrast_value);
+   println("brightness_value: "+brightness_value);
 }
 
 //KEY INPUT

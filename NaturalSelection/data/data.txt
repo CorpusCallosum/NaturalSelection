@@ -1,0 +1,2 @@
+{'type':'generation','timestamp':1334451658, 'generation':2, 'momGenes':[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]}
+{'type':'face','timestamp':1334451659,'numFaces':1, 'generation':2, 'iteration':0}

@@ -86,7 +86,7 @@ class Population {
     //CHANGE THIS TO CHOOSE ONLY THE FITTEST, (no mating)
     //refill the population with children from the mating pool
     for (int i = 0; i < population.length; i++) {
-      println("make child: "+ i);
+    //  println("make child: "+ i);
       mom = _healthiestChild;
       //get their genes
       DNA momgenes = mom.getGenes();
