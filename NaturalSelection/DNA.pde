@@ -26,15 +26,16 @@ class DNA {
     else {
       //DEFINE default values here
       for (int i = 0; i < dna.length; i++) {
-        dna[i] = .2;
+        dna[i] = .4;
       }
       
-     /* dna[0] = 0;  //degree of rotation of branches
-      dna[1] = 0;  //the scale factor of sub-branches       
-      dna[2] = 0;  //number of branches per level
-      dna[3] = 1;  //number of levels of recursion
-      dna[4] = 0; //size of the first branch
-      dna[5] = 1; //change in number of branches per level range -2,+2*/
+     
+     // dna[0] = 0;    //degree of rotation of branches
+      dna[1] = 0.1;    //the scale factor of sub-branches       
+     /* dna[2] = 0;    //number of branches per level
+      dna[3] = 1;    //number of levels of recursion*/
+      dna[4] = .1;    //size of the first branch
+      /*dna[5] = 1;    //change in number of branches per level range -2,+2*/
      
       /*
       //GENES ARE******

@@ -20,7 +20,7 @@ class Drawing {
   int levelCnt = 0;
 
   //GENES
-  float theta, l, branchStep, thickness, gRotY, gRotZ;
+  float theta, l, branchStep, thickness, gRotY, gRotZ, rotRate;
   int numSub, numLevels;
 
   //Create a new face
@@ -44,49 +44,32 @@ class Drawing {
     l  = genes.getGene(1)*2+.1;                                //the scale factor of sub-branches             
     numSub = round(genes.getGene(2)*5)+1;                      //number of branches per level
     numLevels = round(genes.getGene(3)*4)+1;                   //number of levels of recursion
-    float startSize = (genes.getGene(4)*(height/2))+height/5;  //size of the first branch
+    float startSize = (genes.getGene(4)*(height/2))+height/5; //size of the first branch
     branchStep = (genes.getGene(5)*4)-2;                       //range -2,+2
+    rotRate = genes.getGene(6);                       //rotation rate
+
     
    // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
    // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
 
-    // branchGrowth = genes.getGene(5)*2;
     //  thickness = round(genes.getGene(5)*5)+1;
 
-    //
     stroke(1);
     strokeWeight(1);
-   // pushMatrix();
-//    translate(width/2, height/2);
-   /* rotateX(rotX);
-    rotateY(rotY);
-    rotateZ(rotZ);*/
-    branch(startSize, 0);
- //   popMatrix();
-
-   /* rotX+=.02;
-    rotY+=.01;
-    rotZ+=.03;
-
-    if (rotX >= 2*PI) {
-      rotX = 0;
-    }
-    if (rotY >= 2*PI) {
-      rotY = 0;
-    }
-    if (rotZ >= 2*PI) {
-      rotZ = 0;
-    }*/
+   
+    branch(startSize, 0, theta);
+ 
   }
 
-  void branch(float h, int level) {
+  void branch(float h, int level, float rot) {
     // println("branch");
 
-   
-    // numSub = ceil(numSub*(branchGrowth*(level+1)));
-    //increment number of sub branches based on step num, per level
+     //increment number of sub branches based on step num, per level
     int numSubBranches = round(numSub + (level*branchStep));
-    //   println(h);
+   
+    //modify rate genes
+        h *= l;
+        rot *= rotRate;
     
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene
@@ -94,7 +77,7 @@ class Drawing {
       // if (h > 3) {
       for (float i = 0; i<=numSubBranches; i++) {
         pushMatrix();    // Save the current state of transformation (i.e. where are we now)
-        rotateX(theta);   // Rotate by theta
+        rotateX(rot);   // Rotate by theta
         rotateY((i/numSubBranches)*(PI*2));   // Rotate Y
         //        rotateY(gRotY);   // Rotate by theta
 
@@ -111,7 +94,8 @@ class Drawing {
             println(e);
           }
         }
-        branch(h, level+1);       // Ok, now call myself to draw sub-branches
+       
+        branch(h, level+1, rot);       // Ok, now call myself to draw sub-branches
         popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
       }
     }

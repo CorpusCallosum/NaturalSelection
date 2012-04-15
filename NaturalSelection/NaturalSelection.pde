@@ -35,7 +35,7 @@ void setup() {
   // int popmax = 10;
   float mutationRate = .05;  // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
-  popul = new Population(mutationRate, popMax);
+  popul = new Population(mutationRate, popMax, false);
   makeNewGeneration();
 
   //face tracking!
@@ -89,8 +89,10 @@ void draw() {
 
   //WEBCAM DISPLAY
   // display the image
-  if (debug)
+  if (debug){
     image( opencv.image(), 0, 0 );
+     text("fps:"+frameRate, 500, y);
+  }
 
   //FACE DETECTON************************************
   // face detection

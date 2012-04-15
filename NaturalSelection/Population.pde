@@ -23,14 +23,14 @@ class Population {
   float rotX, rotY, rotZ = 0;
 
   //*INITIALIZE THE POPULATION*//
-  Population(float m, int num) {
+  Population(float m, int num, boolean randomize) {
     mutationRate = m;
     MAX = num;
     population = new Drawing[MAX];
     darwin = new ArrayList();
     generations = 0;
     for (int i = 0; i < population.length; i++) {
-      population[i] = new Drawing(new DNA(false), width/2, height/2);
+      population[i] = new Drawing(new DNA(randomize), width/2, height/2);
     }
   }
 
