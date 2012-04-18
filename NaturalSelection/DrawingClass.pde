@@ -21,6 +21,7 @@ class Drawing {
 
   //GENES
   float theta, l, branchStep, thickness, gRotY, gRotZ, rotRate;
+  float startR, startG, startB, endR, endG, endB;
   int numSub, numLevels;
 
   //Create a new face
@@ -46,31 +47,53 @@ class Drawing {
     numLevels = round(genes.getGene(3)*4)+1;                   //number of levels of recursion
     float startSize = (genes.getGene(4)*(height/2))+height/5; //size of the first branch
     branchStep = (genes.getGene(5)*4)-2;                       //range -2,+2
-    rotRate = genes.getGene(6);                       //rotation rate
+    rotRate = genes.getGene(6);                             //rotation rate
+    startR = genes.getGene(7);                             //R
+    startG = genes.getGene(8);                             //G
+    startB = genes.getGene(9);                             //B
+    endR = genes.getGene(10);                             //endR
+    endG = genes.getGene(11);                             //endG
+    endB = genes.getGene(12);                             //endB
 
-    
-   // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
-   // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
+
+
+
+
+    // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
+    // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
 
     //  thickness = round(genes.getGene(5)*5)+1;
+     colorMode(HSB, 1.0);
 
-    stroke(1);
+stroke(1);
+    stroke(startR, startG, startB);
     strokeWeight(1);
-   
+
     branch(startSize, 0, theta);
- 
   }
 
   void branch(float h, int level, float rot) {
     // println("branch");
 
-     //increment number of sub branches based on step num, per level
+    //increment number of sub branches based on step num, per level
     int numSubBranches = round(numSub + (level*branchStep));
-   
-    //modify rate genes
-        h *= l;
-        rot *= rotRate;
+
+    float color1 = startR+((endR - startR)*(float(level)/float(numLevels)));
+    float color2 = startG+((endG - startG)*(float(level)/float(numLevels)));
+    float color3 = startB+((endB - startB)*(float(level)/float(numLevels)));
     
+ /*       println("LEVEL: "+level + "/"+numLevels);
+
+    println("startR: "+startR);
+    println("color1: "+color1);
+        println("endR: "+endR);*/
+
+
+    
+    //modify rate genes
+    h *= l;
+    rot *= rotRate;
+
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene
     if (level < numLevels) {
@@ -85,16 +108,17 @@ class Drawing {
 
         //Dont draw trunk
         if (level>0) {
-          try{
+          try {
+             stroke(color1, color2, color3);
             line(0, 0, 0, -h);  // Draw the branch
             translate(0, -h); // Move to the end of the branch
           }
-          catch(Exception e){
+          catch(Exception e) {
             println("ERROR drawing trunk :( ");
             println(e);
           }
         }
-       
+
         branch(h, level+1, rot);       // Ok, now call myself to draw sub-branches
         popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
       }
@@ -113,3 +137,4 @@ class Drawing {
     fitness += 0.25*m;
   }
 }
+

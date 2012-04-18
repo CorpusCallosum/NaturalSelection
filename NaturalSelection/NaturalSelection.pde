@@ -13,7 +13,7 @@ import java.awt.Rectangle;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 10;
+int popMax = 50;
 int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
@@ -35,8 +35,8 @@ void setup() {
   // int popmax = 10;
   float mutationRate = .05;  // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
-  popul = new Population(mutationRate, popMax, false);
-  makeNewGeneration();
+  popul = new Population(mutationRate, popMax, true);
+  //makeNewGeneration();
 
   //face tracking!
   opencv = new OpenCV( this );
@@ -159,6 +159,9 @@ void makeNewGeneration() {
   //final gene to string, no comma
   data+= momGenes[i]+"]}";
   saveToFile(data);
+  
+  //take screenshot with time stamp
+  saveFrame("images/"+time+".jpg");
 }
 
 void saveToFile(String s) {
