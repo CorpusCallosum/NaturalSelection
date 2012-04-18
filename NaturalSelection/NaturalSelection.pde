@@ -13,7 +13,7 @@ import java.awt.Rectangle;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 50;
+int popMax = 10;
 int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
