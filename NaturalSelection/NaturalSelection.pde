@@ -9,6 +9,7 @@
 import hypermedia.video.*;
 OpenCV opencv;
 import java.awt.Rectangle;
+Timer _faceBufferTimer;
 
 PFont f;
 Population popul;
@@ -45,6 +46,7 @@ void setup() {
 
   textMode(SCREEN);
   debug = false;
+  _faceBufferTimer = new Timer(2000);
 }
 
 void draw() {
@@ -89,9 +91,9 @@ void draw() {
 
   //WEBCAM DISPLAY
   // display the image
-  if (debug){
+  if (debug) {
     image( opencv.image(), 0, 0 );
-     text("fps:"+frameRate, 500, y);
+    text("fps:"+frameRate, 500, y);
   }
 
   //FACE DETECTON************************************
@@ -104,17 +106,31 @@ void draw() {
   for ( int i=0; i<faces.length; i++ ) {
     if (debug)
       rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
-      
+
     //score image
     popul.scoreCurrent(faces.length);
   }
 
   //advance when all look away
+  //and when timer is surpassed
   if (faces.length == 0) {
-    if (_facesLastTime > 0) {
+    _faceBufferTimer.update();
+    if (_faceBufferTimer.isExpired()) {
+      _faceBufferTimer.reset();
+      _faceBufferTimer.stop();
       next();
     }
+    if (_facesLastTime > 0) {
+      //start timer here
+      _faceBufferTimer.reset();
+      _faceBufferTimer.start();
+    }
   }
+  else{
+     _faceBufferTimer.reset();
+  }
+
+
 
   //log data
   if (faces.length != _facesLastTime) {
@@ -153,19 +169,19 @@ void makeNewGeneration() {
   float[] momGenes = popul.getMomDNA();
   String data = "{'type':'generation','timestamp':"+time+", 'generation':"+popul.getGenerations()+", 'momGenes':[";
   int i;
-  for(i = 0; i<momGenes.length-1;i++){
+  for (i = 0; i<momGenes.length-1;i++) {
     data+= momGenes[i]+",";
   }
   //final gene to string, no comma
   data+= momGenes[i]+"]}";
   saveToFile(data);
-  
+
   //take screenshot with time stamp
   saveFrame("images/"+time+".jpg");
 }
 
 void saveToFile(String s) {
- // println("saveToFile: "+s);
+  // println("saveToFile: "+s);
   try {
     BufferedWriter writer = new BufferedWriter(new FileWriter(dataPath("data.txt"), true));
     writer.write(s+"\n");
@@ -183,9 +199,9 @@ void saveToFile(String s) {
 void mouseDragged() {
   contrast_value   = (int) map( mouseX, 0, width, -128, 128 );
   brightness_value = (int) map( mouseY, 0, width, -128, 128 );
-  
+
   println("contrast_value: "+contrast_value);
-   println("brightness_value: "+brightness_value);
+  println("brightness_value: "+brightness_value);
 }
 
 //KEY INPUT
