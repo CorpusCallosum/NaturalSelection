@@ -6,7 +6,7 @@ class Timer {
 
 
   Timer(long t) {
-    _time = t;
+    _time = t*1000; //convert from seconds to ms
     reset();
   }
 

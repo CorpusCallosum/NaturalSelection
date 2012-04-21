@@ -10,6 +10,8 @@ import hypermedia.video.*;
 OpenCV opencv;
 import java.awt.Rectangle;
 Timer _faceBufferTimer;
+Timer _popCycleTimer;
+
 
 PFont f;
 Population popul;
@@ -24,7 +26,7 @@ int _facesLastTime = 0;
 int contrast_value    = 0;
 int brightness_value  = 21;
 
-boolean debug;
+boolean debug, _anySeen;
 
 
 void setup() {
@@ -46,7 +48,10 @@ void setup() {
 
   textMode(SCREEN);
   debug = false;
-  _faceBufferTimer = new Timer(2000);
+  _faceBufferTimer = new Timer(2);
+  _popCycleTimer = new Timer(60*5);//5 min
+  _anySeen = false;
+
 }
 
 void draw() {
@@ -58,15 +63,6 @@ void draw() {
   // Display the child
   popul.display(popCount);
 
-
-  //change on a timer
-  if (second()%displayTime == 0) {//change every 5 seconds
-    if (second()!=lastTime) {
-      //disabled for now, uncomment to enable timer
-      //  next();
-    }
-  }
-
   //FACE TRACKING
   // grab a new frame
   // and convert to gray
@@ -74,8 +70,6 @@ void draw() {
   opencv.convert( GRAY );
   opencv.contrast( contrast_value );
   opencv.brightness( brightness_value );
-
-
 
   // Display some text
   textFont(f);
@@ -127,9 +121,17 @@ void draw() {
     }
   }
   else{
+    //stay on this image
+    _anySeen = true;
      _faceBufferTimer.reset();
+     _popCycleTimer.reset();
+     _popCycleTimer.start();
   }
 
+_popCycleTimer.update();
+if(_popCycleTimer.isExpired()){
+ next(); 
+}
 
 
   //log data
@@ -141,23 +143,31 @@ void draw() {
   }
 
   _facesLastTime = faces.length;
-
-  // fill(1,0,0,.5);
-  //rect(0,0,width,height);
+  
 }
 
 //go to next child or next generation
 void next() {
   popCount++;
+  _popCycleTimer.reset();
+  _popCycleTimer.start();
   // lastTime = second();
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
-    makeNewGeneration();
+    if(_anySeen){//only advance if any of the generation were observed/rated
+      makeNewGeneration();
+    }
+    else{
+      //loop to first
+      popCount = 0;
+      popul.regenerate();
+    }
   }
   lastTime = second();
 }
 
 void makeNewGeneration() {
+  _anySeen = false;
   popCount = 0;
   //generate new generation
   popul.naturalSelection();

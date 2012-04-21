@@ -97,6 +97,18 @@ class Population {
     }
     generations++;
   }
+  
+  //make new set of children from the same parent
+  void regenerate(){
+    for (int i = 0; i < population.length; i++) {
+      //get their genes
+      DNA momgenes = mom.getGenes();
+      //mutate their genes
+      DNA child = new DNA(momgenes.getMutatedDNA(mutationRate));
+      //fill the new population with the new child
+      population[i] = new Drawing(child, width/2, height/2);
+    }
+  }
 
   float[] getMomDNA() {
     return mom.getGenes().getDNA();

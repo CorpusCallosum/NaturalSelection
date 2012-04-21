@@ -29,7 +29,7 @@ class Drawing {
     genes = dna;
     x = x_; 
     y = y_;
-    fitness = 1;
+    fitness = 0;
   }
 
   //render the face
