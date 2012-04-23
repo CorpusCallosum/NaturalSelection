@@ -52,6 +52,11 @@ void setup() {
   _popCycleTimer = new Timer(60*5);//5 min
   _anySeen = false;
 
+  //write start data, timestamp when software starts running
+  Date d = new Date();
+  long time = d.getTime()/1000; 
+  String j = "{'type':'start','timestamp':"+time+"}";
+  saveToFile(j);
 }
 
 void draw() {
@@ -120,18 +125,18 @@ void draw() {
       _faceBufferTimer.start();
     }
   }
-  else{
+  else {
     //stay on this image
     _anySeen = true;
-     _faceBufferTimer.reset();
-     _popCycleTimer.reset();
-     _popCycleTimer.start();
+    _faceBufferTimer.reset();
+    _popCycleTimer.reset();
+    _popCycleTimer.start();
   }
 
-_popCycleTimer.update();
-if(_popCycleTimer.isExpired()){
- next(); 
-}
+  _popCycleTimer.update();
+  if (_popCycleTimer.isExpired()) {
+    next();
+  }
 
 
   //log data
@@ -143,7 +148,6 @@ if(_popCycleTimer.isExpired()){
   }
 
   _facesLastTime = faces.length;
-  
 }
 
 //go to next child or next generation
@@ -154,10 +158,10 @@ void next() {
   // lastTime = second();
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
-    if(_anySeen){//only advance if any of the generation were observed/rated
+    if (_anySeen) {//only advance if any of the generation were observed/rated
       makeNewGeneration();
     }
-    else{
+    else {
       //loop to first
       popCount = 0;
       popul.regenerate();
