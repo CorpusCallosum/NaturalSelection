@@ -36,9 +36,9 @@ boolean debug, _anySeen;
 
 void setup() {
   //list available cameras
-  println(Capture.list());
-   myCapture = new Capture(this, 320, 240, 30); 
- // myCapture.settings();  
+  //println(Capture.list());
+  // myCapture = new Capture(this, 320, 240, 30); 
+  // myCapture.settings();  
   noCursor();
   size(1280, 800, P3D);
   colorMode(RGB, 1.0);
@@ -52,9 +52,9 @@ void setup() {
 
   //face tracking!
   opencv = new OpenCV( this );
- // ocv1 = new OpenCV( this );   
-  opencv.allocate(_camWidth,_camHeight);
- // opencv.capture( 320, 240, 6 );                   // open video stream
+  // opencv.allocate(_camWidth,_camHeight);
+  float s = 2;
+  opencv.capture( int(320*s), int(240*s) ); 
   opencv.cascade( OpenCV.CASCADE_FRONTALFACE_ALT );  // load detection description, here-> front face detection : "haarcascade_frontalface_alt.xml"
 
   textMode(SCREEN);
@@ -82,9 +82,9 @@ void draw() {
   //FACE TRACKING
   // grab a new frame
   // and convert to gray
-//  opencv.read();
-  myCapture.read(); 
-    opencv.copy(myCapture); 
+  opencv.read();
+  //myCapture.read(); 
+  // opencv.copy(myCapture); 
   opencv.convert( GRAY );
   opencv.contrast( contrast_value );
   opencv.brightness( brightness_value );
