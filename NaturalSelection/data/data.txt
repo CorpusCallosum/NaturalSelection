@@ -3026,3 +3026,20 @@
 {'type':'face','timestamp':1334969676,'numFaces':1, 'generation':2, 'iteration':0}
 {'type':'face','timestamp':1334969676,'numFaces':0, 'generation':2, 'iteration':0}
 {'type':'generation','timestamp':1334969696, 'generation':3, 'momGenes':[0.9402646,0.3798012,0.3601157,0.9679192,0.12275311,0.82881355,0.48615903,0.020180583,0.1362426,0.72333205,0.4325759,0.2729178,0.46197543,0.9729996,0.19416453,0.59511447,0.8650587,0.6414909,0.308807,0.72181743]}
+{'type':'start','timestamp':1335310699}
+{'type':'face','timestamp':1335310706,'numFaces':1, 'generation':0, 'iteration':1}
+{'type':'start','timestamp':1335310934}
+{'type':'face','timestamp':1335310937,'numFaces':1, 'generation':0, 'iteration':1}
+{'type':'start','timestamp':1335311970}
+{'type':'face','timestamp':1335311971,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'start','timestamp':1335312020}
+{'type':'face','timestamp':1335312022,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335312025,'numFaces':0, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335312026,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'start','timestamp':1335312352}
+{'type':'face','timestamp':1335312354,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'start','timestamp':1335312534}
+{'type':'face','timestamp':1335312557,'numFaces':1, 'generation':0, 'iteration':1}
+{'type':'face','timestamp':1335312557,'numFaces':0, 'generation':0, 'iteration':1}
+{'type':'face','timestamp':1335312570,'numFaces':1, 'generation':0, 'iteration':2}
+{'type':'start','timestamp':1335313251}

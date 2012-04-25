@@ -6,6 +6,9 @@
 // http://www.genarts.com/karl/papers/siggraph91.html
 // Daniel Shiffman <http://www.shiffman.net>
 
+import processing.video.*;
+Capture myCapture;
+
 import hypermedia.video.*;
 OpenCV opencv;
 import java.awt.Rectangle;
@@ -21,6 +24,8 @@ int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
 int _facesLastTime = 0;
+int _camWidth = 320;
+int _camHeight = 240;
 
 // contrast/brightness values
 int contrast_value    = 0;
@@ -30,6 +35,10 @@ boolean debug, _anySeen;
 
 
 void setup() {
+  //list available cameras
+  println(Capture.list());
+   myCapture = new Capture(this, 320, 240, 30); 
+ // myCapture.settings();  
   noCursor();
   size(1280, 800, P3D);
   colorMode(RGB, 1.0);
@@ -43,7 +52,9 @@ void setup() {
 
   //face tracking!
   opencv = new OpenCV( this );
-  opencv.capture( 320, 240 );                   // open video stream
+ // ocv1 = new OpenCV( this );   
+  opencv.allocate(_camWidth,_camHeight);
+ // opencv.capture( 320, 240, 6 );                   // open video stream
   opencv.cascade( OpenCV.CASCADE_FRONTALFACE_ALT );  // load detection description, here-> front face detection : "haarcascade_frontalface_alt.xml"
 
   textMode(SCREEN);
@@ -71,7 +82,9 @@ void draw() {
   //FACE TRACKING
   // grab a new frame
   // and convert to gray
-  opencv.read();
+//  opencv.read();
+  myCapture.read(); 
+    opencv.copy(myCapture); 
   opencv.convert( GRAY );
   opencv.contrast( contrast_value );
   opencv.brightness( brightness_value );
