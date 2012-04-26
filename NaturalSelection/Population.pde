@@ -49,7 +49,6 @@ class Population {
 
     popMatrix();
 
-
     rotX+=.01;
     rotY+=.03;
     rotZ+=.02;
@@ -78,13 +77,50 @@ class Population {
       }
     }
   }
+  
+  void naturalSelectionSexual() {
+ //clear the ArrayList
+    darwin.clear();
+
+    //Calculate total fitness of whole population
+    float totalFitness = getTotalFitness();
+
+    //Calculate *normalized* fitness for each member of the population
+    //based on normalized fitness, each member will get added to the mating pool a certain number of times a la roulette wheel
+    //a higher fitness = more entries to mating pool = more likely to be picked as a parent
+    //a lower fitness = fewer entries to mating pool = less likely to be picked as a parent
+    for (int i = 0; i < population.length; i++) {
+      float fitnessNormal = population[i].getFitness() / totalFitness;
+      int n = (int) (fitnessNormal * 1000.0f);
+      //print(n + " ");
+      for (int j = 0; j < n; j++) {
+        darwin.add(population[i]);
+      }
+    }
+    //println();
+    //println("----------------
+  }
 
   //*CREATE A NEW GENERATION**//
   void generate() {
-    //add first member of next generation as an exact clone of the mother
-
+    //add first member of next generation as an exact clone of the mother?
     //CHANGE THIS TO CHOOSE ONLY THE FITTEST, (no mating)
-    //refill the population with children from the mating pool
+    for (int i = 0; i < population.length; i++) {
+    //  println("make child: "+ i);
+      mom = _healthiestChild;
+      //get their genes
+      DNA momgenes = mom.getGenes();
+      //mutate their genes
+      DNA child = new DNA(momgenes.getMutatedDNA(mutationRate));
+      //fill the new population with the new child
+      population[i] = new Drawing(child, width/2, height/2);
+    }
+    generations++;
+  }
+  
+   void generateSexual() {
+    //add first member of next generation as an exact clone of the mother?
+    //CHANGE THIS TO CHOOSE ONLY THE FITTEST, (no mating)
     for (int i = 0; i < population.length; i++) {
     //  println("make child: "+ i);
       mom = _healthiestChild;
