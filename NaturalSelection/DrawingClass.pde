@@ -93,6 +93,9 @@ stroke(1);
     //modify rate genes
     h *= l;
     rot *= rotRate;
+    if(rot>=2*PI){
+      rot -= 2*PI;
+    }
 
     // All recursive functions must have an exit condition!!!!
     // Here, ours is when it reaches the number of levels gene

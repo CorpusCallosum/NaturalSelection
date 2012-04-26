@@ -19,7 +19,7 @@ Timer _popCycleTimer;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 10;
+int popMax = 50;
 int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
@@ -60,7 +60,7 @@ void setup() {
   textMode(SCREEN);
   debug = false;
   _faceBufferTimer = new Timer(2);
-  _popCycleTimer = new Timer(60*5);//5 min
+  _popCycleTimer = new Timer(60);//1 min
   _anySeen = false;
 
   //write start data, timestamp when software starts running
@@ -239,6 +239,10 @@ void keyPressed() {
   else if (key == ' ') {
     //bypass timer to iterate next
     next();
+  }
+  else if (key == 'r') {
+  //randomize the next generation
+
   }
 }
 

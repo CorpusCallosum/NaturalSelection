@@ -3043,3 +3043,84 @@
 {'type':'face','timestamp':1335312557,'numFaces':0, 'generation':0, 'iteration':1}
 {'type':'face','timestamp':1335312570,'numFaces':1, 'generation':0, 'iteration':2}
 {'type':'start','timestamp':1335313251}
+{'type':'start','timestamp':1335481230}
+{'type':'face','timestamp':1335481233,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'generation','timestamp':1335481241, 'generation':1, 'momGenes':[0.52281,0.8418543,0.77585113,0.703239,0.95776564,0.16970998,0.2119844,0.40249944,0.0064382553,0.1846441,0.073697865,0.078029215,0.18270302,0.5156333,0.36111677,0.3546602,0.62216836,0.18269157,0.7858488,0.597713]}
+{'type':'face','timestamp':1335481247,'numFaces':0, 'generation':1, 'iteration':3}
+{'type':'face','timestamp':1335481247,'numFaces':1, 'generation':1, 'iteration':3}
+{'type':'face','timestamp':1335481248,'numFaces':0, 'generation':1, 'iteration':3}
+{'type':'face','timestamp':1335481248,'numFaces':1, 'generation':1, 'iteration':4}
+{'type':'face','timestamp':1335481248,'numFaces':0, 'generation':1, 'iteration':4}
+{'type':'face','timestamp':1335481248,'numFaces':1, 'generation':1, 'iteration':4}
+{'type':'face','timestamp':1335481249,'numFaces':0, 'generation':1, 'iteration':4}
+{'type':'face','timestamp':1335481249,'numFaces':1, 'generation':1, 'iteration':4}
+{'type':'generation','timestamp':1335481249, 'generation':2, 'momGenes':[0.5623315,0.87301797,0.7728456,0.7476429,0.96876764,0.17189474,0.229638,0.37207332,0.046750274,0.22976111,0.0286641,0.03412662,0.22181606,0.55054796,0.31592658,0.3365994,0.6318659,0.22239885,0.7541846,0.5799327]}
+{'type':'face','timestamp':1335481249,'numFaces':0, 'generation':2, 'iteration':0}
+{'type':'face','timestamp':1335481249,'numFaces':1, 'generation':2, 'iteration':0}
+{'type':'face','timestamp':1335481250,'numFaces':0, 'generation':2, 'iteration':0}
+{'type':'start','timestamp':1335481341}
+{'type':'face','timestamp':1335481345,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'generation','timestamp':1335481353, 'generation':1, 'momGenes':[0.37206072,0.48500073,0.64081055,0.7632512,0.25514692,0.23183578,0.17752796,0.9376094,0.26928747,0.17880952,0.26701075,0.7881703,0.55995786,0.8887213,0.52332056,0.0064197183,0.23952311,0.13132626,0.48714346,0.32278365]}
+{'type':'face','timestamp':1335481359,'numFaces':0, 'generation':1, 'iteration':0}
+{'type':'face','timestamp':1335481362,'numFaces':1, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481362,'numFaces':0, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481363,'numFaces':1, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481363,'numFaces':0, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481363,'numFaces':1, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481363,'numFaces':0, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481364,'numFaces':1, 'generation':1, 'iteration':1}
+{'type':'start','timestamp':1335481470}
+{'type':'face','timestamp':1335481472,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'generation','timestamp':1335481479, 'generation':1, 'momGenes':[0.462754,0.14145273,0.23589987,0.48283017,0.50385773,0.43952227,0.120280266,0.44698465,0.71309555,0.2625497,0.5235922,0.51036495,0.78031844,0.14559114,0.6806962,0.7074907,0.083939195,0.76767105,0.525591,0.45274615]}
+{'type':'start','timestamp':1335481593}
+{'type':'face','timestamp':1335481595,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481596,'numFaces':2, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481596,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'generation','timestamp':1335481606, 'generation':1, 'momGenes':[0.7989254,0.7049367,0.40137804,0.7871435,0.8159635,0.53787434,0.30654156,0.93947816,0.24765736,0.21320355,0.36790407,0.28868067,0.95746404,0.43906486,0.032758772,0.58382726,0.19237816,0.6436901,0.019211948,0.56404716]}
+{'type':'generation','timestamp':1335481611, 'generation':2, 'momGenes':[0.8431969,0.73893064,0.35347003,0.75343955,0.78118604,0.549866,0.27635655,0.93806607,0.22225174,0.2497497,0.38335806,0.27451816,0.92240226,0.42167747,0.060104143,0.5342513,0.1896858,0.6149665,0.039239425,0.52946484]}
+{'type':'start','timestamp':1335481622}
+{'type':'face','timestamp':1335481623,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481629,'numFaces':2, 'generation':0, 'iteration':3}
+{'type':'face','timestamp':1335481629,'numFaces':1, 'generation':0, 'iteration':3}
+{'type':'generation','timestamp':1335481634, 'generation':1, 'momGenes':[0.7410753,0.7456552,0.7951033,0.77012473,0.6893679,0.84573424,0.016859055,0.14888501,0.41012865,0.37828648,0.6524234,0.87897974,0.06508106,0.39976418,0.4718266,0.6846455,0.57240814,0.94760096,0.03516549,0.8499629]}
+{'type':'face','timestamp':1335481636,'numFaces':2, 'generation':1, 'iteration':2}
+{'type':'face','timestamp':1335481637,'numFaces':1, 'generation':1, 'iteration':2}
+{'type':'start','timestamp':1335481647}
+{'type':'face','timestamp':1335481649,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'generation','timestamp':1335481657, 'generation':1, 'momGenes':[0.19710952,0.802113,0.5579807,0.89721805,0.92440087,0.3390416,0.4210422,0.35735345,0.70703197,0.19536531,0.7851147,0.81291515,0.44780034,0.8511553,0.31830895,0.10747033,0.0071683526,0.8413835,0.13004512,0.5408947]}
+{'type':'generation','timestamp':1335481663, 'generation':2, 'momGenes':[0.17690286,0.80386734,0.56604254,0.90516114,0.94573283,0.32187274,0.4088668,0.32246417,0.6729482,0.16296425,0.81532973,0.8372968,0.49289605,0.84766895,0.3192131,0.11071084,0.04928756,0.84572893,0.17578965,0.56039536]}
+{'type':'start','timestamp':1335481673}
+{'type':'face','timestamp':1335481675,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481675,'numFaces':2, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481675,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481677,'numFaces':2, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481677,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481678,'numFaces':2, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481678,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481679,'numFaces':0, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481679,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481679,'numFaces':0, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481679,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481680,'numFaces':0, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481680,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481681,'numFaces':2, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481681,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481681,'numFaces':0, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481682,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481685,'numFaces':2, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481686,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481690,'numFaces':2, 'generation':0, 'iteration':4}
+{'type':'generation','timestamp':1335481690, 'generation':1, 'momGenes':[0.9352963,0.5680625,0.5246301,0.5603327,0.5397478,0.8309143,0.65339845,0.30185646,0.6873201,0.4908982,0.51343733,0.14638716,0.22986144,0.09968573,0.24733555,0.23168528,0.47292542,0.76239944,0.33232743,0.82701343]}
+{'type':'face','timestamp':1335481691,'numFaces':1, 'generation':1, 'iteration':0}
+{'type':'start','timestamp':1335481749}
+{'type':'face','timestamp':1335481751,'numFaces':1, 'generation':0, 'iteration':0}
+{'type':'face','timestamp':1335481760,'numFaces':0, 'generation':0, 'iteration':6}
+{'type':'face','timestamp':1335481761,'numFaces':1, 'generation':0, 'iteration':7}
+{'type':'face','timestamp':1335481802,'numFaces':0, 'generation':0, 'iteration':47}
+{'type':'generation','timestamp':1335481805, 'generation':1, 'momGenes':[0.5240422,0.36428946,0.60577464,0.5101593,0.7864054,0.17211807,0.9713719,0.5662997,0.42124486,0.5892596,0.6380835,0.9649452,0.5670629,0.55039954,0.4901294,0.5118014,0.5533403,0.4433006,0.54582906,0.029146314]}
+{'type':'face','timestamp':1335481806,'numFaces':1, 'generation':1, 'iteration':1}
+{'type':'face','timestamp':1335481815,'numFaces':2, 'generation':1, 'iteration':15}
+{'type':'face','timestamp':1335481815,'numFaces':1, 'generation':1, 'iteration':15}
+{'type':'generation','timestamp':1335481821, 'generation':2, 'momGenes':[0.4881504,0.36838916,0.6504559,0.50606024,0.7401583,0.21168904,0.9249911,0.58868617,0.43765143,0.5790564,0.6526921,0.9716813,0.570823,0.50318545,0.44553834,0.4995556,0.5829924,0.42845297,0.49929947,0.03071525]}
+{'type':'generation','timestamp':1335481825, 'generation':3, 'momGenes':[0.49541354,0.33131266,0.6951294,0.5215933,0.748849,0.20007294,0.93958724,0.63792914,0.40846843,0.5880064,0.61331284,1.0,0.56537277,0.4766325,0.48594648,0.4911703,0.58937216,0.39085525,0.48622966,0.032280892]}
+{'type':'generation','timestamp':1335481829, 'generation':4, 'momGenes':[0.52158815,0.37460992,0.72267556,0.5389359,0.7866959,0.18044165,0.95759255,0.6444045,0.43144116,0.59382844,0.6415614,0.98718,0.5866454,0.45480987,0.4756613,0.46362737,0.5585791,0.37302834,0.5034267,0.07603598]}
