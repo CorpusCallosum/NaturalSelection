@@ -41,6 +41,8 @@ void setup() {
   // myCapture.settings();  
   noCursor();
   size(1280, 800, P3D);
+ //   size(1280, 800);
+
   colorMode(RGB, 1.0);
   f = loadFont("DINPro-Bold-29.vlw");
   smooth();
