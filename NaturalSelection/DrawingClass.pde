@@ -55,10 +55,6 @@ class Drawing {
     endG = genes.getGene(11);                             //endG
     endB = genes.getGene(12);                             //endB
 
-
-
-
-
     // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
     // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
 
