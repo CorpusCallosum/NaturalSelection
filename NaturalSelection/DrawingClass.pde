@@ -133,7 +133,7 @@ stroke(1);
   }
 
   void score(int m) {
-    fitness += 0.25*m;
+    fitness += 1*m;
   }
 }
 

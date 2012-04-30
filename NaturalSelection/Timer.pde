@@ -18,6 +18,7 @@ class Timer {
     if (!_stopped) {
       if (getElapsedTime() > _time) {
         _expired = true;
+        //reset();
       }
     }
   }
@@ -33,7 +34,7 @@ class Timer {
   }
 
   void stop() {
-    _stopped = true;
+    reset();
   }
   
   void start() {
