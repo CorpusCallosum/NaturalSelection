@@ -22,7 +22,7 @@ Timer _rateTimer;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 500;
+int popMax = 5;
 int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
@@ -88,8 +88,8 @@ void draw() {
   // Display the child
   popul.display(popCount);
 
- // displayText();
- // detect();
+  displayText();
+  detect();
 }
 
 void displayText(){
@@ -171,10 +171,10 @@ void detect(){
     //start scoring image after miniumum facetime is up (2 seconds)
     popul.scoreCurrent(faces.length);
     _anySeen = true;
-    //_rateTimer.reset();
+    _rateTimer.reset();
     //WE HAVE AT LEAST ONE FACE
     //stay on this image
-   // _faceBufferTimer.reset();
+    _faceBufferTimer.reset();
   }
 
   _popCycleTimer.update();
@@ -275,8 +275,9 @@ void keyPressed() {
     println("rotX: "+popul.rotX);
         println("rotY: "+popul.rotY);
     println("rotZ: "+popul.rotZ);
-
-
+  }
+  else if(key == UP){
+      //  popul.scoreCurrent(faces.length);
   }
 }
 

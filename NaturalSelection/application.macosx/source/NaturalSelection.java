@@ -37,7 +37,7 @@ OpenCV opencv;
 
 Timer _faceBufferTimer;
 Timer _popCycleTimer;
-
+Timer _rateTimer;
 
 PFont f;
 Population popul;
@@ -64,6 +64,8 @@ public void setup() {
   // myCapture.settings();  
   noCursor();
   size(1280, 800, P3D);
+ //   size(1280, 800);
+
   colorMode(RGB, 1.0f);
   f = loadFont("DINPro-Bold-29.vlw");
   smooth();
@@ -84,6 +86,8 @@ public void setup() {
   debug = false;
   _faceBufferTimer = new Timer(2);
   _popCycleTimer = new Timer(60);//1 min
+    _rateTimer = new Timer(2);
+
   _anySeen = false;
 
   //write start data, timestamp when software starts running
@@ -140,15 +144,17 @@ public void draw() {
   rectMode(CORNER);
   for ( int i=0; i<faces.length; i++ ) {
     if (debug)
-      rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
+      rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); //draw faces
 
-    //score image
-    popul.scoreCurrent(faces.length);
+    
+   
   }
+ 
 
   //advance when all look away
   //and when timer is surpassed
   if (faces.length == 0) {
+    
     _faceBufferTimer.update();
     if (_faceBufferTimer.isExpired()) {
       _faceBufferTimer.reset();
@@ -159,21 +165,33 @@ public void draw() {
       //start timer here
       _faceBufferTimer.reset();
       _faceBufferTimer.start();
+      
+      _rateTimer.stop();
     }
   }
   else {
+    //WE HAVE AT LEAST ONE FACE
     //stay on this image
     _anySeen = true;
     _faceBufferTimer.reset();
     _popCycleTimer.reset();
     _popCycleTimer.start();
+    if (_facesLastTime == 0) {
+      _rateTimer.start();
+    }
+  }
+  
+   _rateTimer.update();
+  
+  if(_rateTimer.isExpired()){
+    //start scoring image after miniumum facetime is up (2 seconds)
+    popul.scoreCurrent(faces.length);
   }
 
   _popCycleTimer.update();
   if (_popCycleTimer.isExpired()) {
     next();
   }
-
 
   //log data
   if (faces.length != _facesLastTime) {
@@ -204,6 +222,8 @@ public void next() {
     }
   }
   lastTime = second();
+  
+  _rateTimer.reset();
 }
 
 public void makeNewGeneration() {
@@ -430,10 +450,6 @@ class Drawing {
     endG = genes.getGene(11);                             //endG
     endB = genes.getGene(12);                             //endB
 
-
-
-
-
     // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
     // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
 
@@ -512,7 +528,7 @@ stroke(1);
   }
 
   public void score(int m) {
-    fitness += 0.25f*m;
+    fitness += 1*m;
   }
 }
 
@@ -736,6 +752,7 @@ class Timer {
     if (!_stopped) {
       if (getElapsedTime() > _time) {
         _expired = true;
+        //reset();
       }
     }
   }
@@ -751,7 +768,7 @@ class Timer {
   }
 
   public void stop() {
-    _stopped = true;
+    reset();
   }
   
   public void start() {
