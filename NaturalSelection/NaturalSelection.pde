@@ -285,6 +285,7 @@ void keyPressed() {
     println("rotZ: "+popul.rotZ);
   }
   else if(key == 's'){
+    _anySeen = true;
       popul.scoreCurrent(1);
   }
 }
