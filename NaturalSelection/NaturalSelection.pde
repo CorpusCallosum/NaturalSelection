@@ -10,8 +10,11 @@ import processing.video.*;
 Capture myCapture;
 
 import hypermedia.video.*;
-OpenCV opencv;
 import java.awt.Rectangle;
+
+//CONTROL VARS
+
+OpenCV opencv;
 Timer _faceBufferTimer;
 Timer _popCycleTimer;
 Timer _rateTimer;
@@ -63,7 +66,7 @@ void setup() {
   debug = false;
   _faceBufferTimer = new Timer(2);
   _popCycleTimer = new Timer(60);//1 min
-    _rateTimer = new Timer(2);
+  _rateTimer = new Timer(1);//how long to wait after finding face, before starting to rate image
 
   _anySeen = false;
 
@@ -103,7 +106,7 @@ void draw() {
   y += textSpacer;
   text("Rating:"+popul.getChildAt(popCount).fitness, 25, y);
   y += textSpacer;
-  text("Total runtime:", 25, y);
+//  text("Total runtime:", 25, y);
 
   //WEBCAM DISPLAY
   // display the image
@@ -122,9 +125,6 @@ void draw() {
   for ( int i=0; i<faces.length; i++ ) {
     if (debug)
       rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); //draw faces
-
-    
-   
   }
  
 
@@ -134,23 +134,22 @@ void draw() {
     
     _faceBufferTimer.update();
     if (_faceBufferTimer.isExpired()) {
-      _faceBufferTimer.reset();
+            println("face buffer timer is expired, go next");
+
+     // _faceBufferTimer.reset();
       _faceBufferTimer.stop();
       next();
     }
+    
     if (_facesLastTime > 0) {
       //start timer here
       _faceBufferTimer.reset();
       _faceBufferTimer.start();
-      
+      println("start face buffer timer");
       _rateTimer.stop();
     }
   }
   else {
-    //WE HAVE AT LEAST ONE FACE
-    //stay on this image
-    _anySeen = true;
-    _faceBufferTimer.reset();
     _popCycleTimer.reset();
     _popCycleTimer.start();
     if (_facesLastTime == 0) {
@@ -163,6 +162,11 @@ void draw() {
   if(_rateTimer.isExpired()){
     //start scoring image after miniumum facetime is up (2 seconds)
     popul.scoreCurrent(faces.length);
+    _anySeen = true;
+     //WE HAVE AT LEAST ONE FACE
+    //stay on this image
+   // _faceBufferTimer.reset();
+   
   }
 
   _popCycleTimer.update();
@@ -186,7 +190,6 @@ void next() {
   popCount++;
   _popCycleTimer.reset();
   _popCycleTimer.start();
-  // lastTime = second();
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
     if (_anySeen) {//only advance if any of the generation were observed/rated
