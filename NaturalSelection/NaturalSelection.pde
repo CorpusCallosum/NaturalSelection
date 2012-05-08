@@ -67,8 +67,10 @@ void setup() {
   textMode(SCREEN);
   debug = false;
   _faceBufferTimer = new Timer(2);
-  _popCycleTimer = new Timer(60);//1 min
+  _popCycleTimer = new Timer(5);//1 min
   _rateTimer = new Timer(1);//how long to wait after finding face, before starting to rate image
+
+  _popCycleTimer.start();
 
   _anySeen = false;
 
@@ -137,22 +139,26 @@ void detect(){
 
   //advance when all look away
   //and when timer is surpassed
-  if (faces.length == 0) {
-    _faceBufferTimer.update();
 
-    if (_facesLastTime > 0) {
-      //start timer here
-      _faceBufferTimer.reset();
-      _faceBufferTimer.start();
-      println("start face buffer timer");
-      _rateTimer.stop();
-    }
+  if (faces.length == 0) {
+
+      _faceBufferTimer.update();
+    
     
     if (_faceBufferTimer.isExpired()) {
       println("face buffer timer is expired, go next");
       //_faceBufferTimer.reset();
       _faceBufferTimer.stop();
       next();
+    }
+    
+    if (_facesLastTime > 0) {
+      //start timer here
+      println("reset face buffer timer");
+      _faceBufferTimer.reset();
+      _faceBufferTimer.start();
+      println("start face buffer timer");
+      _rateTimer.stop();
     }
     
   }
@@ -172,9 +178,11 @@ void detect(){
     popul.scoreCurrent(faces.length);
     _anySeen = true;
     _rateTimer.reset();
+        _rateTimer.start();
+
     //WE HAVE AT LEAST ONE FACE
     //stay on this image
-    _faceBufferTimer.reset();
+  //  _faceBufferTimer.reset();
   }
 
   _popCycleTimer.update();
@@ -277,7 +285,7 @@ void keyPressed() {
     println("rotZ: "+popul.rotZ);
   }
   else if(key == UP){
-      //  popul.scoreCurrent(faces.length);
+      popul.scoreCurrent(1);
   }
 }
 
