@@ -88,8 +88,8 @@ void draw() {
   // Display the child
   popul.display(popCount);
 
-  displayText();
-  detect();
+ // displayText();
+ // detect();
 }
 
 void displayText(){
