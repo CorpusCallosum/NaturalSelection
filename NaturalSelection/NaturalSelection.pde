@@ -284,7 +284,7 @@ void keyPressed() {
         println("rotY: "+popul.rotY);
     println("rotZ: "+popul.rotZ);
   }
-  else if(key == UP){
+  else if(key == 's'){
       popul.scoreCurrent(1);
   }
 }
