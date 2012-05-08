@@ -22,7 +22,7 @@ Timer _rateTimer;
 PFont f;
 Population popul;
 int popCount = 0;
-int popMax = 5;
+int popMax = 500;
 int displayTime = 60;
 int lastTime = 0;
 int textSpacer = 30;
@@ -34,6 +34,8 @@ int _camHeight = 240;
 int contrast_value    = 0;
 int brightness_value  = 21;
 
+int y;    //var used to space text on screen
+
 boolean debug, _anySeen;
 
 
@@ -44,7 +46,7 @@ void setup() {
   // myCapture.settings();  
   noCursor();
   size(1280, 800, P3D);
- //   size(1280, 800);
+  //   size(1280, 800);
 
   colorMode(RGB, 1.0);
   f = loadFont("DINPro-Bold-29.vlw");
@@ -86,27 +88,33 @@ void draw() {
   // Display the child
   popul.display(popCount);
 
-  //FACE TRACKING
-  // grab a new frame
-  // and convert to gray
-  opencv.read();
-  //myCapture.read(); 
-  // opencv.copy(myCapture); 
-  opencv.convert( GRAY );
-  opencv.contrast( contrast_value );
-  opencv.brightness( brightness_value );
+  displayText();
+  detect();
+}
 
-  // Display some text
+void displayText(){
+   // Display some text
   textFont(f);
   textAlign(LEFT);
   fill(1);
   // translate(0,0);
-  int y = height-100;
+  y = height-100;
   text("Generation #" + (popul.getGenerations()) + " Iteration #"+(popCount+1)+"/"+popMax, 25, y);
   y += textSpacer;
   text("Rating:"+popul.getChildAt(popCount).fitness, 25, y);
   y += textSpacer;
-//  text("Total runtime:", 25, y);
+  //  text("Total runtime:", 25, y);
+}
+
+void detect(){
+  
+  //FACE TRACKING
+  // grab a new frame
+  // and convert to gray
+  opencv.read();
+  opencv.convert( GRAY );
+  opencv.contrast( contrast_value );
+  opencv.brightness( brightness_value );
 
   //WEBCAM DISPLAY
   // display the image
@@ -126,21 +134,12 @@ void draw() {
     if (debug)
       rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); //draw faces
   }
- 
 
   //advance when all look away
   //and when timer is surpassed
   if (faces.length == 0) {
-    
     _faceBufferTimer.update();
-    if (_faceBufferTimer.isExpired()) {
-            println("face buffer timer is expired, go next");
 
-     // _faceBufferTimer.reset();
-      _faceBufferTimer.stop();
-      next();
-    }
-    
     if (_facesLastTime > 0) {
       //start timer here
       _faceBufferTimer.reset();
@@ -148,25 +147,34 @@ void draw() {
       println("start face buffer timer");
       _rateTimer.stop();
     }
+    
+    if (_faceBufferTimer.isExpired()) {
+      println("face buffer timer is expired, go next");
+      //_faceBufferTimer.reset();
+      _faceBufferTimer.stop();
+      next();
+    }
+    
   }
   else {
+    //A FACE IS FOUND
     _popCycleTimer.reset();
     _popCycleTimer.start();
     if (_facesLastTime == 0) {
       _rateTimer.start();
     }
   }
-  
-   _rateTimer.update();
-  
-  if(_rateTimer.isExpired()){
+
+  _rateTimer.update();
+
+  if (_rateTimer.isExpired()) {
     //start scoring image after miniumum facetime is up (2 seconds)
     popul.scoreCurrent(faces.length);
     _anySeen = true;
-     //WE HAVE AT LEAST ONE FACE
+    //_rateTimer.reset();
+    //WE HAVE AT LEAST ONE FACE
     //stay on this image
    // _faceBufferTimer.reset();
-   
   }
 
   _popCycleTimer.update();
@@ -201,8 +209,7 @@ void next() {
       popul.regenerate();
     }
   }
-  lastTime = second();
-  
+  _faceBufferTimer.reset();
   _rateTimer.reset();
 }
 
@@ -263,8 +270,12 @@ void keyPressed() {
     //bypass timer to iterate next
     next();
   }
-  else if (key == 'r') {
-  //randomize the next generation
+  else if (key == 'o') {
+    //randomize the next generation
+    println("rotX: "+popul.rotX);
+        println("rotY: "+popul.rotY);
+    println("rotZ: "+popul.rotZ);
+
 
   }
 }
