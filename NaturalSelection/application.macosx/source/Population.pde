@@ -20,7 +20,9 @@ class Population {
   Drawing _healthiestChild;
   Drawing mom;
 
-  float rotX, rotY, rotZ = 0;
+  float rotX = 0;
+  float rotY = 0;
+  float rotZ = 0;
 
   //*INITIALIZE THE POPULATION*//
   Population(float m, int num, boolean randomize) {
@@ -32,6 +34,9 @@ class Population {
     for (int i = 0; i < population.length; i++) {
       population[i] = new Drawing(new DNA(randomize), width/2, height/2);
     }
+    
+   // rotateX(-PI);
+   
   }
 
   //display all faces
@@ -40,8 +45,11 @@ class Population {
     _id = id;
 
     pushMatrix();
-
     translate(width/2, height/2);
+  //  rotateZ(-PI/2);
+  //  rotateX(-PI/2);
+ //   rotateY(PI);
+
     rotateX(rotX);
     rotateY(rotY);
     rotateZ(rotZ);
@@ -49,9 +57,9 @@ class Population {
 
     popMatrix();
 
-    rotX+=.01;
-    rotY+=.03;
-    rotZ+=.02;
+    rotX+=.003;
+    rotY+=.001;
+    rotZ+=.002;
 
     if (rotX >= 2*PI) {
       rotX = 0;

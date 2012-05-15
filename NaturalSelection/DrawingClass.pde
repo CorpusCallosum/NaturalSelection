@@ -50,10 +50,10 @@ class Drawing {
     rotRate = genes.getGene(6);                                //rotation rate
     startR = genes.getGene(7);                                 //R
     startG = genes.getGene(8);                                 //G
-    startB = genes.getGene(9);                                 //B
+    startB = 1;//genes.getGene(9);                                 //B
     endR = genes.getGene(10);                                  //endR
     endG = genes.getGene(11);                                  //endG
-    endB = genes.getGene(12);                                  //endB
+    endB = 1;//genes.getGene(12);                                  //endB
     _curl = radians(genes.getGene(13)*360);                                 
     curlRate = genes.getGene(14);                                 
 

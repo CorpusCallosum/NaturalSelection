@@ -25,7 +25,7 @@ int popCount = 0;
 int popMax = 5;
 int displayTime = 60;
 int lastTime = 0;
-int textSpacer = 30;
+int textSpacer = 20;
 int _facesLastTime = 0;
 int _camWidth = 320;
 int _camHeight = 240;
@@ -41,15 +41,17 @@ boolean debug, _anySeen;
 
 void setup() {
   //list available cameras
-  //println(Capture.list());
+  println(Capture.list());
   // myCapture = new Capture(this, 320, 240, 30); 
-  // myCapture.settings();  
+  //myCapture.settings();  
   noCursor();
-  size(1280, 800, P3D);
+  size(1440, 900, P3D);
   //   size(1280, 800);
 
   colorMode(RGB, 1.0);
-  f = loadFont("DINPro-Bold-29.vlw");
+//  f = loadFont("DINPro-Bold-29.vlw");
+    f = loadFont("HelveticaNeue-Bold-15.vlw");
+
   smooth();
   // int popmax = 10;
   float mutationRate = .05;  // A pretty high mutation rate here, our population is rather small we need to enforce variety
@@ -98,9 +100,9 @@ void displayText(){
    // Display some text
   textFont(f);
   textAlign(LEFT);
-  fill(1);
+  fill(.5);
   // translate(0,0);
-  y = height-100;
+  y = height-50;
   text("Generation #" + (popul.getGenerations()) + " Iteration #"+(popCount+1)+"/"+popMax, 25, y);
   y += textSpacer;
   text("Rating:"+popul.getChildAt(popCount).fitness, 25, y);

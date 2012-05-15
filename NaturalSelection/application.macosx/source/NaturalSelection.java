@@ -33,8 +33,11 @@ public class NaturalSelection extends PApplet {
 Capture myCapture;
 
 
-OpenCV opencv;
 
+
+//CONTROL VARS
+
+OpenCV opencv;
 Timer _faceBufferTimer;
 Timer _popCycleTimer;
 Timer _rateTimer;
@@ -54,17 +57,19 @@ int _camHeight = 240;
 int contrast_value    = 0;
 int brightness_value  = 21;
 
+int y;    //var used to space text on screen
+
 boolean debug, _anySeen;
 
 
 public void setup() {
   //list available cameras
-  //println(Capture.list());
+  println(Capture.list());
   // myCapture = new Capture(this, 320, 240, 30); 
-  // myCapture.settings();  
+  //myCapture.settings();  
   noCursor();
-  size(1280, 800, P3D);
- //   size(1280, 800);
+  size(1440, 900, P3D);
+  //   size(1280, 800);
 
   colorMode(RGB, 1.0f);
   f = loadFont("DINPro-Bold-29.vlw");
@@ -85,8 +90,10 @@ public void setup() {
   textMode(SCREEN);
   debug = false;
   _faceBufferTimer = new Timer(2);
-  _popCycleTimer = new Timer(60);//1 min
-    _rateTimer = new Timer(2);
+  _popCycleTimer = new Timer(5);//1 min
+  _rateTimer = new Timer(1);//how long to wait after finding face, before starting to rate image
+
+  _popCycleTimer.start();
 
   _anySeen = false;
 
@@ -106,27 +113,33 @@ public void draw() {
   // Display the child
   popul.display(popCount);
 
-  //FACE TRACKING
-  // grab a new frame
-  // and convert to gray
-  opencv.read();
-  //myCapture.read(); 
-  // opencv.copy(myCapture); 
-  opencv.convert( GRAY );
-  opencv.contrast( contrast_value );
-  opencv.brightness( brightness_value );
+  displayText();
+  detect();
+}
 
-  // Display some text
+public void displayText(){
+   // Display some text
   textFont(f);
   textAlign(LEFT);
   fill(1);
   // translate(0,0);
-  int y = height-100;
+  y = height-100;
   text("Generation #" + (popul.getGenerations()) + " Iteration #"+(popCount+1)+"/"+popMax, 25, y);
   y += textSpacer;
   text("Rating:"+popul.getChildAt(popCount).fitness, 25, y);
   y += textSpacer;
-  text("Total runtime:", 25, y);
+  //  text("Total runtime:", 25, y);
+}
+
+public void detect(){
+  
+  //FACE TRACKING
+  // grab a new frame
+  // and convert to gray
+  opencv.read();
+  opencv.convert( GRAY );
+  opencv.contrast( contrast_value );
+  opencv.brightness( brightness_value );
 
   //WEBCAM DISPLAY
   // display the image
@@ -145,47 +158,54 @@ public void draw() {
   for ( int i=0; i<faces.length; i++ ) {
     if (debug)
       rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); //draw faces
-
-    
-   
   }
- 
 
   //advance when all look away
   //and when timer is surpassed
+
   if (faces.length == 0) {
+
+      _faceBufferTimer.update();
     
-    _faceBufferTimer.update();
+    
     if (_faceBufferTimer.isExpired()) {
-      _faceBufferTimer.reset();
+      println("face buffer timer is expired, go next");
+      //_faceBufferTimer.reset();
       _faceBufferTimer.stop();
       next();
     }
+    
     if (_facesLastTime > 0) {
       //start timer here
+      println("reset face buffer timer");
       _faceBufferTimer.reset();
       _faceBufferTimer.start();
-      
+      println("start face buffer timer");
       _rateTimer.stop();
     }
+    
   }
   else {
-    //WE HAVE AT LEAST ONE FACE
-    //stay on this image
-    _anySeen = true;
-    _faceBufferTimer.reset();
+    //A FACE IS FOUND
     _popCycleTimer.reset();
     _popCycleTimer.start();
     if (_facesLastTime == 0) {
       _rateTimer.start();
     }
   }
-  
-   _rateTimer.update();
-  
-  if(_rateTimer.isExpired()){
+
+  _rateTimer.update();
+
+  if (_rateTimer.isExpired()) {
     //start scoring image after miniumum facetime is up (2 seconds)
     popul.scoreCurrent(faces.length);
+    _anySeen = true;
+    _rateTimer.reset();
+        _rateTimer.start();
+
+    //WE HAVE AT LEAST ONE FACE
+    //stay on this image
+  //  _faceBufferTimer.reset();
   }
 
   _popCycleTimer.update();
@@ -209,7 +229,6 @@ public void next() {
   popCount++;
   _popCycleTimer.reset();
   _popCycleTimer.start();
-  // lastTime = second();
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
     if (_anySeen) {//only advance if any of the generation were observed/rated
@@ -221,8 +240,7 @@ public void next() {
       popul.regenerate();
     }
   }
-  lastTime = second();
-  
+  _faceBufferTimer.reset();
   _rateTimer.reset();
 }
 
@@ -283,9 +301,15 @@ public void keyPressed() {
     //bypass timer to iterate next
     next();
   }
-  else if (key == 'r') {
-  //randomize the next generation
-
+  else if (key == 'o') {
+    //randomize the next generation
+    println("rotX: "+popul.rotX);
+        println("rotY: "+popul.rotY);
+    println("rotZ: "+popul.rotZ);
+  }
+  else if(key == 's'){
+    _anySeen = true;
+      popul.scoreCurrent(1);
   }
 }
 
@@ -391,6 +415,7 @@ class DNA {
   public float[] getDNA() {
     return dna;
   }
+  
 }
 
 //*****************************************************
@@ -416,7 +441,7 @@ class Drawing {
 
   //GENES
   float theta, l, branchStep, thickness, gRotY, gRotZ, rotRate;
-  float startR, startG, startB, endR, endG, endB;
+  float startR, startG, startB, endR, endG, endB, _curl, curlRate;
   int numSub, numLevels;
 
   //Create a new face
@@ -439,16 +464,19 @@ class Drawing {
     theta  = radians(genes.getGene(0)*360);                    //degree of rotation of branches
     l  = genes.getGene(1)*2+.1f;                                //the scale factor of sub-branches             
     numSub = round(genes.getGene(2)*5)+1;                      //number of branches per level
-    numLevels = round(genes.getGene(3)*4)+1;                   //number of levels of recursion
-    float startSize = (genes.getGene(4)*(height/2))+height/5; //size of the first branch
+    numLevels = round(genes.getGene(3)*3)+2;                   //number of levels of recursion
+    float startSize = (genes.getGene(4)*(height/2))+height/5;  //size of the first branch
     branchStep = (genes.getGene(5)*4)-2;                       //range -2,+2
-    rotRate = genes.getGene(6);                             //rotation rate
-    startR = genes.getGene(7);                             //R
-    startG = genes.getGene(8);                             //G
-    startB = genes.getGene(9);                             //B
-    endR = genes.getGene(10);                             //endR
-    endG = genes.getGene(11);                             //endG
-    endB = genes.getGene(12);                             //endB
+    rotRate = genes.getGene(6);                                //rotation rate
+    startR = genes.getGene(7);                                 //R
+    startG = genes.getGene(8);                                 //G
+    startB = genes.getGene(9);                                 //B
+    endR = genes.getGene(10);                                  //endR
+    endG = genes.getGene(11);                                  //endG
+    endB = genes.getGene(12);                                  //endB
+    _curl = radians(genes.getGene(13)*360);                                 
+    curlRate = genes.getGene(14);                                 
+
 
     // gRotY  = radians(genes.getGene(6)*360);                    //degree of rotation of branches
     // gRotZ  = radians(genes.getGene(7)*360);                    //degree of rotation of branches
@@ -459,12 +487,15 @@ class Drawing {
 stroke(1);
     stroke(startR, startG, startB);
     strokeWeight(1);
+    
+    //pushMatrix();
+    //rotateX(-PI/2);   // Rotate by theta
 
-    branch(startSize, 0, theta);
+    branch(startSize, 0, theta, _curl);
+    //popMatrix();
   }
 
-  public void branch(float h, int level, float rot) {
-    // println("branch");
+  public void branch(float h, int level, float rot, float c) {
 
     //increment number of sub branches based on step num, per level
     int numSubBranches = round(numSub + (level*branchStep));
@@ -472,20 +503,14 @@ stroke(1);
     float color1 = startR+((endR - startR)*(PApplet.parseFloat(level)/PApplet.parseFloat(numLevels)));
     float color2 = startG+((endG - startG)*(PApplet.parseFloat(level)/PApplet.parseFloat(numLevels)));
     float color3 = startB+((endB - startB)*(PApplet.parseFloat(level)/PApplet.parseFloat(numLevels)));
-    
- /*       println("LEVEL: "+level + "/"+numLevels);
 
-    println("startR: "+startR);
-    println("color1: "+color1);
-        println("endR: "+endR);*/
-
-
-    
     //modify rate genes
+    if(level>1){
     h *= l;
     rot *= rotRate;
     if(rot>=2*PI){
       rot -= 2*PI;
+    }
     }
 
     // All recursive functions must have an exit condition!!!!
@@ -494,16 +519,16 @@ stroke(1);
       // if (h > 3) {
       for (float i = 0; i<=numSubBranches; i++) {
         pushMatrix();    // Save the current state of transformation (i.e. where are we now)
-        rotateX(rot);   // Rotate by theta
-        rotateY((i/numSubBranches)*(PI*2));   // Rotate Y
-        //        rotateY(gRotY);   // Rotate by theta
+       
 
         // rotateZ(gRotZ);   // Rotate by theta
 
         //Dont draw trunk
-        if (level>0) {
+        if (level>1) {
+         
+        //        rotateY(gRotY);   // Rotate by theta
           try {
-             stroke(color1, color2, color3);
+            stroke(color1, color2, color3);
             line(0, 0, 0, -h);  // Draw the branch
             translate(0, -h); // Move to the end of the branch
           }
@@ -512,8 +537,13 @@ stroke(1);
             println(e);
           }
         }
+    
+        rotateX(rot);   // Rotate by theta
+        rotateY((i/numSubBranches)*2*PI);   // Rotate Y
+       // rotateY(curl);   // Rotate Y
 
-        branch(h, level+1, rot);       // Ok, now call myself to draw sub-branches
+        c *= curlRate;
+        branch(h, level+1, rot, c);       // Ok, now call myself to draw sub-branches
         popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
       }
     }
@@ -580,7 +610,9 @@ class Population {
   Drawing _healthiestChild;
   Drawing mom;
 
-  float rotX, rotY, rotZ = 0;
+  float rotX = 0;
+  float rotY = 0;
+  float rotZ = 0;
 
   //*INITIALIZE THE POPULATION*//
   Population(float m, int num, boolean randomize) {
@@ -592,6 +624,9 @@ class Population {
     for (int i = 0; i < population.length; i++) {
       population[i] = new Drawing(new DNA(randomize), width/2, height/2);
     }
+    
+   // rotateX(-PI);
+   
   }
 
   //display all faces
@@ -600,8 +635,11 @@ class Population {
     _id = id;
 
     pushMatrix();
-
     translate(width/2, height/2);
+  //  rotateZ(-PI/2);
+  //  rotateX(-PI/2);
+ //   rotateY(PI);
+
     rotateX(rotX);
     rotateY(rotY);
     rotateZ(rotZ);
@@ -609,9 +647,9 @@ class Population {
 
     popMatrix();
 
-    rotX+=.01f;
-    rotY+=.03f;
-    rotZ+=.02f;
+    rotX+=.003f;
+    rotY+=.001f;
+    rotZ+=.002f;
 
     if (rotX >= 2*PI) {
       rotX = 0;
@@ -764,7 +802,7 @@ class Timer {
   public void reset() {
     _startTime = millis();
     _expired = false;
-    _stopped = false;
+    _stopped = true;
   }
 
   public void stop() {

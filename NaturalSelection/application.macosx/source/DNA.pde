@@ -100,5 +100,6 @@ class DNA {
   float[] getDNA() {
     return dna;
   }
+  
 }
 

@@ -10,8 +10,11 @@ import processing.video.*;
 Capture myCapture;
 
 import hypermedia.video.*;
-OpenCV opencv;
 import java.awt.Rectangle;
+
+//CONTROL VARS
+
+OpenCV opencv;
 Timer _faceBufferTimer;
 Timer _popCycleTimer;
 Timer _rateTimer;
@@ -31,17 +34,19 @@ int _camHeight = 240;
 int contrast_value    = 0;
 int brightness_value  = 21;
 
+int y;    //var used to space text on screen
+
 boolean debug, _anySeen;
 
 
 void setup() {
   //list available cameras
-  //println(Capture.list());
+  println(Capture.list());
   // myCapture = new Capture(this, 320, 240, 30); 
-  // myCapture.settings();  
+  //myCapture.settings();  
   noCursor();
-  size(1280, 800, P3D);
- //   size(1280, 800);
+  size(1440, 900, P3D);
+  //   size(1280, 800);
 
   colorMode(RGB, 1.0);
   f = loadFont("DINPro-Bold-29.vlw");
@@ -62,8 +67,10 @@ void setup() {
   textMode(SCREEN);
   debug = false;
   _faceBufferTimer = new Timer(2);
-  _popCycleTimer = new Timer(60);//1 min
-    _rateTimer = new Timer(2);
+  _popCycleTimer = new Timer(5);//1 min
+  _rateTimer = new Timer(1);//how long to wait after finding face, before starting to rate image
+
+  _popCycleTimer.start();
 
   _anySeen = false;
 
@@ -83,27 +90,33 @@ void draw() {
   // Display the child
   popul.display(popCount);
 
-  //FACE TRACKING
-  // grab a new frame
-  // and convert to gray
-  opencv.read();
-  //myCapture.read(); 
-  // opencv.copy(myCapture); 
-  opencv.convert( GRAY );
-  opencv.contrast( contrast_value );
-  opencv.brightness( brightness_value );
+  displayText();
+  detect();
+}
 
-  // Display some text
+void displayText(){
+   // Display some text
   textFont(f);
   textAlign(LEFT);
   fill(1);
   // translate(0,0);
-  int y = height-100;
+  y = height-100;
   text("Generation #" + (popul.getGenerations()) + " Iteration #"+(popCount+1)+"/"+popMax, 25, y);
   y += textSpacer;
   text("Rating:"+popul.getChildAt(popCount).fitness, 25, y);
   y += textSpacer;
-  text("Total runtime:", 25, y);
+  //  text("Total runtime:", 25, y);
+}
+
+void detect(){
+  
+  //FACE TRACKING
+  // grab a new frame
+  // and convert to gray
+  opencv.read();
+  opencv.convert( GRAY );
+  opencv.contrast( contrast_value );
+  opencv.brightness( brightness_value );
 
   //WEBCAM DISPLAY
   // display the image
@@ -122,47 +135,54 @@ void draw() {
   for ( int i=0; i<faces.length; i++ ) {
     if (debug)
       rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); //draw faces
-
-    
-   
   }
- 
 
   //advance when all look away
   //and when timer is surpassed
+
   if (faces.length == 0) {
+
+      _faceBufferTimer.update();
     
-    _faceBufferTimer.update();
+    
     if (_faceBufferTimer.isExpired()) {
-      _faceBufferTimer.reset();
+      println("face buffer timer is expired, go next");
+      //_faceBufferTimer.reset();
       _faceBufferTimer.stop();
       next();
     }
+    
     if (_facesLastTime > 0) {
       //start timer here
+      println("reset face buffer timer");
       _faceBufferTimer.reset();
       _faceBufferTimer.start();
-      
+      println("start face buffer timer");
       _rateTimer.stop();
     }
+    
   }
   else {
-    //WE HAVE AT LEAST ONE FACE
-    //stay on this image
-    _anySeen = true;
-    _faceBufferTimer.reset();
+    //A FACE IS FOUND
     _popCycleTimer.reset();
     _popCycleTimer.start();
     if (_facesLastTime == 0) {
       _rateTimer.start();
     }
   }
-  
-   _rateTimer.update();
-  
-  if(_rateTimer.isExpired()){
+
+  _rateTimer.update();
+
+  if (_rateTimer.isExpired()) {
     //start scoring image after miniumum facetime is up (2 seconds)
     popul.scoreCurrent(faces.length);
+    _anySeen = true;
+    _rateTimer.reset();
+        _rateTimer.start();
+
+    //WE HAVE AT LEAST ONE FACE
+    //stay on this image
+  //  _faceBufferTimer.reset();
   }
 
   _popCycleTimer.update();
@@ -186,7 +206,6 @@ void next() {
   popCount++;
   _popCycleTimer.reset();
   _popCycleTimer.start();
-  // lastTime = second();
   //we have viewed all the children, so make a new generation
   if (popCount>=popMax) {
     if (_anySeen) {//only advance if any of the generation were observed/rated
@@ -198,8 +217,7 @@ void next() {
       popul.regenerate();
     }
   }
-  lastTime = second();
-  
+  _faceBufferTimer.reset();
   _rateTimer.reset();
 }
 
@@ -260,9 +278,15 @@ void keyPressed() {
     //bypass timer to iterate next
     next();
   }
-  else if (key == 'r') {
-  //randomize the next generation
-
+  else if (key == 'o') {
+    //randomize the next generation
+    println("rotX: "+popul.rotX);
+        println("rotY: "+popul.rotY);
+    println("rotZ: "+popul.rotZ);
+  }
+  else if(key == 's'){
+    _anySeen = true;
+      popul.scoreCurrent(1);
   }
 }
 

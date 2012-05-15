@@ -30,7 +30,7 @@ class Timer {
   void reset() {
     _startTime = millis();
     _expired = false;
-    _stopped = false;
+    _stopped = true;
   }
 
   void stop() {
